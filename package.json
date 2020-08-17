@@ -8,12 +8,19 @@
     "start": "parcel index.html",
     "build": "parcel build index.html"
   },
+  "alias": {
+    "components": "./src/components",
+    "assets": "./src/assets"
+  },
   "dependencies": {
+    "assets": "^3.0.1",
+    "components": "^0.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
-    "parcel": "^1.12.4"
+    "parcel": "^1.12.4",
+    "sass": "^1.26.10"
   }
 }

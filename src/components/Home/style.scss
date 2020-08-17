@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  place-items: center;
+  height: 100%;
+
+  .text {
+    margin: 32px;
+
+    .title {
+      font-family: "Zilla Slab";
+      font-size: 54px;
+      text-align: center;
+      margin: 0;
+    }
+
+    .description {
+      text-align: center;
+      font-size: 22px;
+      line-height: 36px;
+      margin: 32px 0;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-around;
+
+      a {
+        font-size: 20px;
+        padding: 8px 32px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        display: block;
+      }
+
+      .register {
+        background-color: #202950;
+        color: #ffe285;
+      }
+
+      .login {
+        color: #202950;
+        border: 2px solid #202950;
+      }
+    }
+  }
+
+  img {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    justify-content: space-between;
+
+    .text {
+      width: 60%;
+
+      .title {
+        font-size: 72px;
+        text-align: start;
+      }
+
+      .description {
+        font-size: 42px;
+        line-height: 70px;
+        margin: 48px 0;
+        text-align: start;
+      }
+
+      .actions {
+        justify-content: start;
+
+        a {
+          font-size: 36px;
+          padding: 16px 42px;
+          width: fit-content;
+        }
+
+        .register {
+          margin-right: 48px;
+        }
+      }
+    }
+
+    img {
+      width: 40%;
+      height: 40%;
+      display: block;
+    }
+  }
+}
