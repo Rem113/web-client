@@ -4,8 +4,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom"
 
 import Header from "components/Header"
 import Home from "components/Home"
+import Login from "components/Login"
 
-const Login = () => <></>
 const Fallback = () => <></>
 
 const App = () => (

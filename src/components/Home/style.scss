@@ -1,4 +1,6 @@
-.container {
+@import "../../../variables.scss";
+
+.home-container {
   display: flex;
   place-items: center;
   height: 100%;
@@ -34,13 +36,13 @@
       }
 
       .register {
-        background-color: #202950;
-        color: #ffe285;
+        background-color: $primary;
+        color: $bg-color;
       }
 
       .login {
-        color: #202950;
-        border: 2px solid #202950;
+        color: $primary;
+        border: 2px solid $primary;
       }
     }
   }
@@ -51,7 +53,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .container {
+  .home-container {
     justify-content: space-between;
 
     .text {
@@ -85,7 +87,7 @@
 }
 
 @media screen and (min-width: 1000px) {
-  .container {
+  .home-container {
     justify-content: space-between;
 
     .text {

@@ -1,10 +1,12 @@
+@import "variables.scss";
+
 * {
   font-family: Raleway;
 }
 
 *::selection {
   color: white;
-  background-color: rgb(204, 48, 61);
+  background-color: $secondary;
 }
 
 html,
@@ -14,12 +16,12 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #ffe285;
+  background-color: $bg-color;
 }
 
 @media screen and (min-width: 768px) {
   #root {
     width: 70%;
-    margin-left: 10%;
+    margin-left: 15%;
   }
 }
