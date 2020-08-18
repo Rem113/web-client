@@ -7,7 +7,7 @@ import "./style.scss"
 export default () => (
   <div className="container">
     <div className="text">
-      <h1 className="title">Your health. Our priority</h1>
+      <h1 className="title">Your health. Our priority.</h1>
       <p className="description">
         Our employees are commited to delivering food and medication to the
         people in need. You can join us right now.
