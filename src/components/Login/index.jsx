@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import axios from "axios"
 
 import "./style.scss"
@@ -8,6 +8,7 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   function handleChange(event) {
     const value = event.target.value;
@@ -19,12 +20,20 @@ function Login() {
   function handleSubmit() {
     event.preventDefault();
     axios.post("http://localhost:3000/api/auth/login",
-      { email, password },
-      {
-        headers: { "Access-Control-Allow-Origin": true }
-      })
-      .then(res => {
-        console.log("OKOKOKO")
+      { email, password }).then(res => {
+
+        var { connected, error, user } = res.data
+        user = user[0]
+
+        console.log(res.data)
+
+        if (error !== null)
+          console.log(error)
+        if (connected === true) {
+          localStorage.clear()
+          localStorage.setItem('token', user._id)
+          localStorage.setItem('infos', [user.name, user.email, user.isManager])
+        }
       })
   }
 
@@ -42,9 +51,7 @@ function Login() {
       <button onClick={handleSubmit}>Login</button>
 
       <div className="register-link">
-        <p>
-          Not yet registered? <Link to="/register">Sign up</Link>
-        </p>
+        <p>Not yet registered? <Link to="/register">Sign up</Link></p>
       </div>
     </div>
   );

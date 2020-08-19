@@ -23,6 +23,5 @@
   "devDependencies": {
     "parcel": "^1.12.4",
     "sass": "^1.26.10"
-  },
-  "proxy": "http://localhost:3000"
+  }
 }
