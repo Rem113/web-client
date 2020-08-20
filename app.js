@@ -6,6 +6,7 @@ import Header from "components/Header"
 import Home from "components/Home"
 import Login from "components/Login"
 import Register from "components/Register"
+import Logout from "components/Logout"
 
 const Fallback = () => <></>
 
@@ -16,6 +17,7 @@ const App = () => (
       <Route path="/" component={Home} exact />
       <Route path="/login" component={Login} exact />
       <Route path="/register" component={Register} exact />
+      <Route path="/logout" component={Logout} exact />
       <Route component={Fallback} />
     </Switch>
   </BrowserRouter>

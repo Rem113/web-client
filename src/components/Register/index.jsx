@@ -1,10 +1,11 @@
 import React, { useState } from "react"
-import { Link, useHistory } from "react-router-dom"
+import { Link, useHistory, Redirect } from "react-router-dom"
 import axios from "axios"
 
 import "../Login/style.scss"
 
 function Register() {
+    const token = localStorage.getItem('token')
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("");
@@ -24,25 +25,26 @@ function Register() {
 
     function handleSubmit() {
         event.preventDefault();
-        console.log({ name, email, password })
         axios.post("http://localhost:3000/api/auth/register",
-            { name, email, password }).then(res => {
+            { name, email, password })
+            .then(res => {
 
                 var { connected, error, user } = res.data
                 user = user[0]
 
-                console.log(res.data)
-
                 if (error !== null)
-                    console.log(error)
+                    alert(error)
                 if (connected === true) {
                     localStorage.clear()
                     localStorage.setItem('token', user._id)
                     localStorage.setItem('infos', [user.name, user.email, user.isManager])
+                    history.push('/')
                 }
             })
     }
 
+    if (token !== null)
+        return <Redirect to="/" />
     return (
         <div className="login-container">
             <h1 className="title">Register</h1>
