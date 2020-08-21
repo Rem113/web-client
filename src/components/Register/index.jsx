@@ -10,23 +10,29 @@ function Register() {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [age, setAge] = useState()
     const history = useHistory();
 
     function handleChange(event) {
         const value = event.target.value
         const target = event.target.name
 
-        if (target === 'name')
+        if (target === 'name') {
             setName(value)
+        }
         else if (target === 'email')
             setEmail(value)
+        else if (target === 'age')
+            setAge(value)
         else setPassword(value)
+
+
     }
 
     function handleSubmit() {
         event.preventDefault();
         axios.post("http://localhost:3000/api/auth/register",
-            { name, email, password })
+            { name, email, password, age })
             .then(res => {
 
                 var { connected, error, user } = res.data
@@ -54,11 +60,15 @@ function Register() {
             </div>
             <div className="form-group">
                 <label htmlFor="email">Email :</label>
-                <input type="email" name="email" value={email} onChange={handleChange} required />
+                <input type="email" name="email" value={email} onChange={handleChange} />
             </div>
             <div className="form-group">
                 <label htmlFor="password">Password :</label>
-                <input type="password" name="password" value={password} onChange={handleChange} required />
+                <input type="password" name="password" value={password} onChange={handleChange} />
+            </div>
+            <div className="form-group">
+                <label htmlFor="age">Age :</label>
+                <input type='number' name="age" value={age} min="15" max="120" onChange={handleChange} />
             </div>
             <button onClick={handleSubmit}>Register</button>
 
