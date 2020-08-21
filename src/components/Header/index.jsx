@@ -3,14 +3,13 @@ import { Link, useLocation } from "react-router-dom"
 
 import "./style.scss"
 
-export default () => {
+const Header = () => {
   const { pathname } = useLocation()
 
-  let [token, infos] = [null, null]
+  let token = localStorage.getItem("token")
+  let name = null
 
-  token = localStorage.getItem('token')
-  if (token != null)
-    infos = localStorage.getItem('infos').split(',');
+  if (token !== null) name = localStorage.getItem("name")
 
   function NonConnectedBanner() {
     return (
@@ -19,7 +18,7 @@ export default () => {
           <li>
             <Link className={pathname === "/" ? "active" : null} to="/">
               Home
-          </Link>
+            </Link>
           </li>
           <li>
             <Link
@@ -27,7 +26,7 @@ export default () => {
               to="/login"
             >
               Login
-          </Link>
+            </Link>
           </li>
           <li>
             <Link
@@ -35,36 +34,38 @@ export default () => {
               to="/register"
             >
               Register
-          </Link>
+            </Link>
           </li>
         </ul>
       </nav>
-    );
+    )
   }
 
   function ConnectedBanner() {
-    return (<nav>
-      <ul>
-        <li>
-          <Link to="/">Hello {infos[0]}</Link>
-        </li>
-        <li>
-          <Link className={pathname === "/" ? "active" : null} to="/">
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link to='/logout'><i className="fas fa-sign-out-alt"></i></Link>
-        </li>
-      </ul>
-    </nav>)
+    return (
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Hello, {name}</Link>
+          </li>
+          <li>
+            <Link className={pathname === "/" ? "active" : null} to="/">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/logout">
+              <i className="fas fa-sign-out-alt"></i>
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    )
   }
 
   function Banner() {
-    if (token != null)
-      return ConnectedBanner()
-    else
-      return NonConnectedBanner()
+    if (token !== null) return ConnectedBanner()
+    else return NonConnectedBanner()
   }
 
   return (
@@ -77,4 +78,4 @@ export default () => {
   )
 }
 
-
+export default Header

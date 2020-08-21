@@ -4,69 +4,91 @@ import axios from "axios"
 
 import "../Login/style.scss"
 
-function Register() {
-    const token = localStorage.getItem('token')
+const Register = () => {
+  const [formState, setFormState] = useState({
+    name: "",
+    age: "",
+    email: "",
+    password: "",
+  })
+  const [formErrors, setFormErrors] = useState({
+    name: "",
+    age: "",
+    email: "",
+    password: "",
+  })
 
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const history = useHistory();
+  const history = useHistory()
 
-    function handleChange(event) {
-        const value = event.target.value
-        const target = event.target.name
+  const handleChange = (e) =>
+    setFormState({
+      ...formState,
+      [e.target.name]: e.target.value,
+    })
 
-        if (target === 'name')
-            setName(value)
-        else if (target === 'email')
-            setEmail(value)
-        else setPassword(value)
-    }
+  const handleSubmit = () => {
+    axios
+      .post("http://localhost:3000/api/auth/register", formState)
+      .then((res) => {
+        history.push("/")
+      })
+      .catch((err) => setFormErrors(err.response.data))
+  }
 
-    function handleSubmit() {
-        event.preventDefault();
-        axios.post("http://localhost:3000/api/auth/register",
-            { name, email, password })
-            .then(res => {
+  return (
+    <div className="login-container">
+      <h1 className="title">Register</h1>
+      <div className="form-group">
+        <label htmlFor="name">Name :</label>
+        <input
+          type="text"
+          name="name"
+          value={formState.name}
+          onChange={handleChange}
+        />
+        <small className="error">{formErrors.name}</small>
+      </div>
+      <div className="form-group">
+        <label htmlFor="age">Age :</label>
+        <input
+          type="text"
+          name="age"
+          value={formState.age}
+          onChange={handleChange}
+        />
+        <small className="error">{formErrors.age}</small>
+      </div>
+      <div className="form-group">
+        <label htmlFor="email">Email :</label>
+        <input
+          type="email"
+          name="email"
+          value={formState.email}
+          onChange={handleChange}
+          required
+        />
+        <small className="error">{formErrors.email}</small>
+      </div>
+      <div className="form-group">
+        <label htmlFor="password">Password :</label>
+        <input
+          type="password"
+          name="password"
+          value={formState.password}
+          onChange={handleChange}
+          required
+        />
+        <small className="error">{formErrors.password}</small>
+      </div>
+      <button onClick={handleSubmit}>Register</button>
 
-                var { connected, error, user } = res.data
-                user = user[0]
-
-                if (error !== null)
-                    alert(error)
-                if (connected === true) {
-                    localStorage.clear()
-                    localStorage.setItem('token', user._id)
-                    localStorage.setItem('infos', [user.name, user.email, user.isManager])
-                    history.push('/')
-                }
-            })
-    }
-
-    if (token !== null)
-        return <Redirect to="/" />
-    return (
-        <div className="login-container">
-            <h1 className="title">Register</h1>
-            <div className="form-group">
-                <label htmlFor="name">Name :</label>
-                <input type="text" name="name" value={name} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-                <label htmlFor="email">Email :</label>
-                <input type="email" name="email" value={email} onChange={handleChange} required />
-            </div>
-            <div className="form-group">
-                <label htmlFor="password">Password :</label>
-                <input type="password" name="password" value={password} onChange={handleChange} required />
-            </div>
-            <button onClick={handleSubmit}>Register</button>
-
-            <div className="register-link">
-                <p>Have already an account? <Link to="/login">Sign in</Link></p>
-            </div>
-        </div>
-    );
+      <div className="register-link">
+        <p>
+          Have already an account? <Link to="/login">Sign in</Link>
+        </p>
+      </div>
+    </div>
+  )
 }
 
-export default Register;
+export default Register

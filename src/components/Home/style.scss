@@ -6,7 +6,7 @@
   height: 100%;
 
   .text {
-    margin: 2rem;
+    margin: 0 1rem;
 
     .title {
       font-family: "Zilla Slab";
@@ -57,6 +57,8 @@
     justify-content: space-between;
 
     .text {
+      margin: 0;
+
       .title {
         font-size: 3.5rem;
         text-align: start;
@@ -93,6 +95,7 @@
     .text {
       width: 50%;
     }
+
     img {
       width: 40%;
       height: 40%;

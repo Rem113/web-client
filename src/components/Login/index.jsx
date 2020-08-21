@@ -4,59 +4,61 @@ import axios from "axios"
 
 import "./style.scss"
 
-function Login() {
-  const token = localStorage.getItem('token')
+const Login = () => {
+  const [formState, setFormState] = useState({ email: "", password: "" })
+  const [formErrors, setFormErrors] = useState({ email: "", password: "" })
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const history = useHistory();
+  const history = useHistory()
 
-  function handleChange(event) {
-    const value = event.target.value;
-    if (event.target.name == "email")
-      setEmail(value)
-    else setPassword(value)
-  }
+  const handleChange = (e) =>
+    setFormState({
+      ...formState,
+      [e.target.name]: e.target.value,
+    })
 
-  function handleSubmit() {
-    event.preventDefault();
-    axios.post("http://localhost:3000/api/auth/login",
-      { email, password }).then(res => {
-
-        var { connected, error, user } = res.data
-        user = user[0]
-
-        if (error !== null)
-          alert(error)
-        if (connected === true) {
-          localStorage.clear()
-          localStorage.setItem('token', user._id)
-          localStorage.setItem('infos', [user.name, user.email, user.isManager])
-          history.push('/')
-        }
+  const handleSubmit = () =>
+    axios
+      .post("http://localhost:3000/api/auth/login", formState)
+      .then((res) => {
+        localStorage.setItem("token", res.data.token)
+        localStorage.setItem("name", res.data.name)
+        history.push("/")
       })
-  }
+      .catch((err) => setFormErrors(err.response.data))
 
-  if (token !== null)
-    return <Redirect to="/" />
   return (
     <div className="login-container">
       <h1 className="title">Login</h1>
       <div className="form-group">
         <label htmlFor="email">Email :</label>
-        <input type="email" name="email" value={email} onChange={handleChange} required />
+        <input
+          type="email"
+          name="email"
+          value={formState.email}
+          onChange={handleChange}
+          required
+        />
+        <small className="error">{formErrors.email}</small>
       </div>
       <div className="form-group">
         <label htmlFor="password">Password :</label>
-        <input type="password" name="password" value={password} onChange={handleChange} required />
+        <input
+          type="password"
+          name="password"
+          value={formState.password}
+          onChange={handleChange}
+          required
+        />
+        <small className="error">{formErrors.password}</small>
       </div>
       <button onClick={handleSubmit}>Login</button>
-
       <div className="register-link">
-        <p>Not yet registered? <Link to="/register">Sign up</Link></p>
+        <p>
+          Not yet registered? <Link to="/register">Sign up</Link>
+        </p>
       </div>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login

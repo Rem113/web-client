@@ -11,12 +11,13 @@
     font-family: "Zilla Slab";
     font-size: 2.75rem;
     text-align: center;
+    margin: 0;
   }
 
   .form-group {
     display: flex;
     flex-direction: column;
-    margin: 1.5rem;
+    margin-top: 1rem;
     width: 70%;
 
     label {
@@ -35,6 +36,10 @@
         transition: 0.25s;
         outline: none;
       }
+    }
+
+    .error {
+      color: $error;
     }
   }
 
@@ -57,7 +62,7 @@
 
 @media screen and (min-width: 768px) {
   .login-container {
-    width: 50%;
+    max-width: 600px;
     margin: auto;
   }
 }

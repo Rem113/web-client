@@ -4,7 +4,7 @@ import FoodDelivery from "assets/food-delivery.svg"
 
 import "./style.scss"
 
-export default () => (
+const Home = () => (
   <div className="home-container">
     <div className="text">
       <h1 className="title">Your health. Our priority.</h1>
@@ -24,3 +24,5 @@ export default () => (
     <img src={FoodDelivery} />
   </div>
 )
+
+export default Home
