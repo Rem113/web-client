@@ -21,7 +21,7 @@ const Home = () => (
         </Link>
       </div>
     </div>
-    <img src={FoodDelivery} />
+    <img src={FoodDelivery} draggable='false' />
   </div>
 )
 

@@ -54,6 +54,11 @@ const Header = () => {
             </Link>
           </li>
           <li>
+            <Link className={pathname === "/blog" ? "active" : null} to="/blog">
+              Blog
+            </Link>
+          </li>
+          <li>
             <Link to="/logout">
               <i className="fas fa-sign-out-alt"></i>
             </Link>

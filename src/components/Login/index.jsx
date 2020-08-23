@@ -10,6 +10,12 @@ const Login = () => {
 
   const history = useHistory()
 
+  function checkAccessUser() {
+    if (localStorage.getItem("token") !== null)
+      return false
+    else return true
+  }
+
   const handleChange = (e) =>
     setFormState({
       ...formState,
@@ -26,39 +32,42 @@ const Login = () => {
       })
       .catch((err) => setFormErrors(err.response.data))
 
-  return (
-    <div className="login-container">
-      <h1 className="title">Login</h1>
-      <div className="form-group">
-        <label htmlFor="email">Email :</label>
-        <input
-          type="email"
-          name="email"
-          value={formState.email}
-          onChange={handleChange}
-          required
-        />
-        <small className="error">{formErrors.email}</small>
+  if (checkAccessUser())
+    return (
+      <div className="login-container">
+        <h1 className="title">Login</h1>
+        <div className="form-group">
+          <label htmlFor="email">Email :</label>
+          <input
+            type="email"
+            name="email"
+            value={formState.email}
+            onChange={handleChange}
+            required
+          />
+          <small className="error">{formErrors.email}</small>
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password :</label>
+          <input
+            type="password"
+            name="password"
+            value={formState.password}
+            onChange={handleChange}
+            required
+          />
+          <small className="error">{formErrors.password}</small>
+        </div>
+        <button onClick={handleSubmit}>Login</button>
+        <div className="register-link">
+          <p>
+            Not yet registered? <Link to="/register">Sign up</Link>
+          </p>
+        </div>
       </div>
-      <div className="form-group">
-        <label htmlFor="password">Password :</label>
-        <input
-          type="password"
-          name="password"
-          value={formState.password}
-          onChange={handleChange}
-          required
-        />
-        <small className="error">{formErrors.password}</small>
-      </div>
-      <button onClick={handleSubmit}>Login</button>
-      <div className="register-link">
-        <p>
-          Not yet registered? <Link to="/register">Sign up</Link>
-        </p>
-      </div>
-    </div>
-  )
+    )
+  else
+    return <Redirect to="/" />
 }
 
 export default Login

@@ -7,6 +7,8 @@ import Home from "components/Home"
 import Login from "components/Login"
 import Register from "components/Register"
 import Logout from "components/Logout"
+import Blog from "components/Blog"
+import NewPost from "components/NewPost"
 
 const Fallback = () => <></>
 
@@ -18,6 +20,8 @@ const App = () => (
       <Route path="/login" component={Login} exact />
       <Route path="/register" component={Register} exact />
       <Route path="/logout" component={Logout} exact />
+      <Route path="/blog" component={Blog} exact />
+      <Route path="/new-post" component={NewPost} exact />
       <Route component={Fallback} />
     </Switch>
   </BrowserRouter>
