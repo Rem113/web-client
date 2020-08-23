@@ -10,16 +10,16 @@
 
     .title {
       font-family: "Zilla Slab";
-      font-size: 2.75rem;
+      font-size: 2.75em;
       text-align: center;
       margin: 0;
     }
 
     .description {
       text-align: center;
-      font-size: 1.35rem;
-      line-height: 2rem;
-      margin: 2rem 0;
+      font-size: 1.35em;
+      line-height: 2em;
+      margin: 2em 0;
     }
 
     .actions {
@@ -27,8 +27,8 @@
       justify-content: space-around;
 
       a {
-        font-size: 1rem;
-        padding: 0.6rem 2rem;
+        font-size: 1em;
+        padding: 0.6em 1em;
         border-radius: 5px;
         cursor: pointer;
         text-decoration: none;
@@ -52,7 +52,7 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 820px) {
   .home-container {
     justify-content: space-between;
 

@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Link, useHistory, Redirect } from "react-router-dom"
 import axios from "axios"
 
-import "./style.scss"
+import styles from "./style.scss"
 
 const Login = () => {
   const [formState, setFormState] = useState({ email: "", password: "" })
@@ -10,11 +10,7 @@ const Login = () => {
 
   const history = useHistory()
 
-  function checkAccessUser() {
-    if (localStorage.getItem("token") !== null)
-      return false
-    else return true
-  }
+  const checkAccessUser = () => localStorage.getItem("token") === null
 
   const handleChange = (e) =>
     setFormState({
@@ -34,9 +30,9 @@ const Login = () => {
 
   if (checkAccessUser())
     return (
-      <div className="login-container">
-        <h1 className="title">Login</h1>
-        <div className="form-group">
+      <div className={styles.container}>
+        <h1 className={styles.title}>Login</h1>
+        <div className={styles["form-group"]}>
           <label htmlFor="email">Email :</label>
           <input
             type="email"
@@ -45,9 +41,9 @@ const Login = () => {
             onChange={handleChange}
             required
           />
-          <small className="error">{formErrors.email}</small>
+          <small className={styles.error}>{formErrors.email}</small>
         </div>
-        <div className="form-group">
+        <div className={styles["form-group"]}>
           <label htmlFor="password">Password :</label>
           <input
             type="password"
@@ -56,18 +52,17 @@ const Login = () => {
             onChange={handleChange}
             required
           />
-          <small className="error">{formErrors.password}</small>
+          <small className={styles.error}>{formErrors.password}</small>
         </div>
         <button onClick={handleSubmit}>Login</button>
-        <div className="register-link">
+        <div className={styles.link}>
           <p>
             Not yet registered? <Link to="/register">Sign up</Link>
           </p>
         </div>
       </div>
     )
-  else
-    return <Redirect to="/" />
+  else return <Redirect to="/" />
 }
 
 export default Login

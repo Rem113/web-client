@@ -1,28 +1,35 @@
 import React from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useHistory } from "react-router-dom"
+import LogoutIcon from "../../assets/logout.svg"
 
-import "./style.scss"
+import styles from "./style.scss"
 
 const Header = () => {
   const { pathname } = useLocation()
+  const history = useHistory()
 
   let token = localStorage.getItem("token")
   let name = null
 
   if (token !== null) name = localStorage.getItem("name")
 
+  const logout = () => {
+    localStorage.clear()
+    history.push("/")
+  }
+
   function NonConnectedBanner() {
     return (
       <nav>
         <ul>
           <li>
-            <Link className={pathname === "/" ? "active" : null} to="/">
+            <Link className={pathname === "/" ? styles.active : null} to="/">
               Home
             </Link>
           </li>
           <li>
             <Link
-              className={pathname === "/login" ? "active" : null}
+              className={pathname === "/login" ? styles.active : null}
               to="/login"
             >
               Login
@@ -30,7 +37,7 @@ const Header = () => {
           </li>
           <li>
             <Link
-              className={pathname === "/register" ? "active" : null}
+              className={pathname === "/register" ? styles.active : null}
               to="/register"
             >
               Register
@@ -49,19 +56,22 @@ const Header = () => {
             <Link to="/">Hello, {name}</Link>
           </li>
           <li>
-            <Link className={pathname === "/" ? "active" : null} to="/">
+            <Link className={pathname === "/" ? styles.active : null} to="/">
               Home
             </Link>
           </li>
           <li>
-            <Link className={pathname === "/blog" ? "active" : null} to="/blog">
+            <Link
+              className={pathname.startsWith("/blog") ? styles.active : null}
+              to="/blog"
+            >
               Blog
             </Link>
           </li>
           <li>
-            <Link to="/logout">
-              <i className="fas fa-sign-out-alt"></i>
-            </Link>
+            <a onClick={logout}>
+              <img src={LogoutIcon} />
+            </a>
           </li>
         </ul>
       </nav>
@@ -75,7 +85,7 @@ const Header = () => {
 
   return (
     <header>
-      <Link className="logo" to="/">
+      <Link className={styles.logo} to="/">
         <h1>Distribute</h1>
       </Link>
       <Banner />

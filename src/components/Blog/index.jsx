@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import LinkCard from "./LinkCard"
+import BlogCard from "../BlogCard/BlogCard"
 import Pagination from "../Pagination"
-
-import "./style.scss"
 import axios from "axios"
+
+import styles from "./style.scss"
 
 const Blog = () => {
   const [posts, setPosts] = useState([])
@@ -26,18 +26,22 @@ const Blog = () => {
   return loading ? (
     <p>Loading...</p>
   ) : (
-    <div className="blog-container">
+    <div className={styles.container}>
       <h1>Blog</h1>
 
+      <Link className={styles["write-post-button"]} to="/new-post">
+        Write a blog post
+      </Link>
+
       {posts.map((post) => (
-        <LinkCard key={post._id} title={post.title} postedAt={post.postedAt} />
+        <BlogCard
+          key={post._id}
+          id={post._id}
+          title={post.title}
+          postedAt={post.postedAt}
+        />
       ))}
 
-      <div className="actions">
-        <Link className="register" to="/new-post">
-          Add A New Subject
-        </Link>
-      </div>
       <Pagination page={page} maxPage={maxPage} onChangePage={setPage} />
     </div>
   )

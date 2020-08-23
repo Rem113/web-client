@@ -2,17 +2,16 @@ import React, { useState } from "react"
 import { Link, useHistory, Redirect } from "react-router-dom"
 import axios from "axios"
 
-import "./style.scss"
+import styles from "./style.scss"
 
-const Login = () => {
+const WritePost = () => {
   const [formState, setFormState] = useState({ title: "", content: "" })
   const [formErrors, setFormErrors] = useState({ title: "", content: "" })
 
   const history = useHistory()
 
   function checkAccessUser() {
-    if (localStorage.getItem("token") === null)
-      return false
+    if (localStorage.getItem("token") === null) return false
     else return true
   }
 
@@ -21,7 +20,6 @@ const Login = () => {
       ...formState,
       [e.target.name]: e.target.value,
     })
-
 
   const handleSubmit = () =>
     axios
@@ -33,9 +31,9 @@ const Login = () => {
 
   if (checkAccessUser())
     return (
-      <div className="login-container">
-        <h1 className="title">Add A New Subject</h1>
-        <div className="form-group">
+      <div className={styles.container}>
+        <h1 className={styles.title}>Write a blog post: </h1>
+        <div className={styles["form-group"]}>
           <label htmlFor="title">Title :</label>
           <input
             type="text"
@@ -43,9 +41,9 @@ const Login = () => {
             value={formState.title}
             onChange={handleChange}
           />
-          <small className="error">{formErrors.title}</small>
+          <small className={styles.error}>{formErrors.title}</small>
         </div>
-        <div className="form-group">
+        <div className={styles["form-group"]}>
           <label htmlFor="content">Content :</label>
           <textarea
             type="text"
@@ -54,13 +52,14 @@ const Login = () => {
             onChange={handleChange}
             rows="5"
           />
-          <small className="error">{formErrors.content}</small>
+          <small className={styles.error}>{formErrors.content}</small>
         </div>
-        <button onClick={handleSubmit}>Post</button>
+        <button class="button" onClick={handleSubmit}>
+          Post
+        </button>
       </div>
     )
-  else
-    return <Redirect to="/" />
+  else return <Redirect to="/" />
 }
 
-export default Login
+export default WritePost
