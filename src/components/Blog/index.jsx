@@ -1,31 +1,36 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import LinkCard from "./LinkCard"
+import Pagination from "../Pagination"
 
 import "./style.scss"
 import axios from "axios"
 
 const Blog = () => {
-  const [posts, setPosts] = useState({})
+  const [posts, setPosts] = useState([])
+  const [page, setPage] = useState(1)
+  const [maxPage, setMaxPage] = useState(-1)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/post").then((res) => {
-      let counterPost = {}
-      res.data.forEach((post) => {
-        if (counterPost[post.title] === undefined) {
-          counterPost[post.title] = 1
-        } else counterPost[post.title] += 1
+    setLoading(true)
+    axios
+      .get("http://localhost:3000/api/post", { params: { page } })
+      .then((res) => {
+        setPosts(res.data.posts)
+        setMaxPage(res.data.pages)
+        setLoading(false)
       })
-      setPosts(counterPost)
-    })
-  }, [])
+  }, [page])
 
-  return (
+  return loading ? (
+    <p>Loading...</p>
+  ) : (
     <div className="blog-container">
       <h1>Blog</h1>
 
-      {Object.keys(posts).map((keyName, i) => (
-        <LinkCard key={i} title={keyName} numberPub={posts[keyName]} />
+      {posts.map((post) => (
+        <LinkCard key={post._id} title={post.title} postedAt={post.postedAt} />
       ))}
 
       <div className="actions">
@@ -33,6 +38,7 @@ const Blog = () => {
           Add A New Subject
         </Link>
       </div>
+      <Pagination page={page} maxPage={maxPage} onChangePage={setPage} />
     </div>
   )
 }
