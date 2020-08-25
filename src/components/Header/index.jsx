@@ -1,6 +1,5 @@
 import React from "react"
 import { Link, useLocation, useHistory } from "react-router-dom"
-import LogoutIcon from "assets/logout.svg"
 
 import styles from "./style.scss"
 
@@ -18,77 +17,65 @@ const Header = () => {
     history.push("/")
   }
 
-  function NonConnectedBanner() {
-    return (
-      <nav>
-        <ul>
-          <li>
-            <Link className={pathname === "/" ? styles.active : null} to="/">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              className={pathname === "/login" ? styles.active : null}
-              to="/login"
-            >
-              Login
-            </Link>
-          </li>
-          <li>
-            <Link
-              className={pathname === "/register" ? styles.active : null}
-              to="/register"
-            >
-              Register
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    )
-  }
+  const GuestLinks = () => (
+    <>
+      <li>
+        <Link className={pathname === "/" ? styles.active : null} to="/">
+          Home
+        </Link>
+      </li>
+      <li>
+        <Link
+          className={pathname === "/login" ? styles.active : null}
+          to="/login"
+        >
+          Login
+        </Link>
+      </li>
+      <li>
+        <Link
+          className={pathname === "/register" ? styles.active : null}
+          to="/register"
+        >
+          Register
+        </Link>
+      </li>
+    </>
+  )
 
-  function ConnectedBanner() {
-    return (
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Hello, {name}</Link>
-          </li>
-          <li>
-            <Link className={pathname === "/" ? styles.active : null} to="/">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              className={pathname.startsWith("/blog") ? styles.active : null}
-              to="/blog"
-            >
-              Blog
-            </Link>
-          </li>
-          <li>
-            <a onClick={logout}>
-              <img src={LogoutIcon} />
-            </a>
-          </li>
-        </ul>
-      </nav>
-    )
-  }
-
-  function Banner() {
-    if (token !== null) return ConnectedBanner()
-    else return NonConnectedBanner()
-  }
+  const UserLinks = () => (
+    <>
+      <li>
+        <Link className={styles.avatar} to="/dashboard">
+          {name.split(" ")[0][0].toUpperCase()}
+        </Link>
+      </li>
+      <li>
+        <Link
+          className={
+            pathname.startsWith("/blog") || pathname === "/write-post"
+              ? styles.active
+              : null
+          }
+          to="/blog"
+        >
+          Blog
+        </Link>
+      </li>
+      <li>
+        <a onClick={logout}>Logout</a>
+      </li>
+    </>
+  )
 
   return (
     <header>
       <Link className={styles.logo} to="/">
         <h1>Distribute</h1>
       </Link>
-      <Banner />
+      <nav>
+        <ul>{token === null ? <GuestLinks /> : <UserLinks />}</ul>
+      </nav>
     </header>
   )
 }

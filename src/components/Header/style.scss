@@ -15,6 +15,21 @@ header {
 
   nav {
     display: none;
+
+    li {
+      place-self: center;
+    }
+
+    .avatar {
+      background-color: $secondary;
+      padding: 10px;
+      width: 24px;
+      height: 24px;
+      display: block;
+      text-align: center;
+      border-radius: 50%;
+      color: $bg-color;
+    }
   }
 }
 

@@ -22,7 +22,7 @@ const Login = () => {
       .then((res) => {
         localStorage.setItem("token", res.data.token)
         localStorage.setItem("name", res.data.name)
-        history.push("/")
+        history.push("/dashboard")
       })
       .catch((err) => setFormErrors(err.response.data))
 
