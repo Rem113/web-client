@@ -44,11 +44,17 @@ const WritePost = () => {
           name="content"
           value={formState.content}
           onChange={handleChange}
-          rows="5"
+          rows="10"
         />
-        <small className={styles.error}>{formErrors.content}</small>
+        <small className={styles.hint}>
+          Content is displayed as markdown. Edit markdown{" "}
+          <a href="https://liyasthomas.github.io/marcdown/" target="blank">
+            here
+          </a>
+          .
+        </small>
       </div>
-      <button class="button" onClick={handleSubmit}>
+      <button className="button" onClick={handleSubmit}>
         Post
       </button>
     </div>
