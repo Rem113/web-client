@@ -1,6 +1,6 @@
 import React from "react"
 import { Link, useLocation, useHistory } from "react-router-dom"
-import LogoutIcon from "../../assets/logout.svg"
+import LogoutIcon from "assets/logout.svg"
 
 import styles from "./style.scss"
 

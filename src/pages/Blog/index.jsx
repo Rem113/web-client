@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import BlogCard from "../BlogCard/BlogCard"
-import Pagination from "../Pagination"
 import axios from "axios"
+
+import Pagination from "components/Pagination"
+import BlogCard from "components/BlogCard"
 
 import styles from "./style.scss"
 

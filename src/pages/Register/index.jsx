@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link, useHistory, Redirect } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import axios from "axios"
 
 import styles from "./style.scss"
@@ -37,7 +37,6 @@ const Register = () => {
       .catch((err) => setFormErrors(err.response.data))
   }
 
-  if (!checkAccessUser()) history.push("/")
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Register</h1>
