@@ -1,5 +1,6 @@
 import React from "react"
 import { Link, useHistory } from "react-router-dom"
+
 import FoodDelivery from "assets/food-delivery.svg"
 
 import styles from "./style.scss"

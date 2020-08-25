@@ -11,6 +11,7 @@ import Register from "components/Register"
 import Blog from "components/Blog"
 import WritePost from "components/WritePost"
 import BlogPost from "./components/BlogPost"
+import Dashboard from "./components/Dashboard"
 
 const Fallback = () => <></>
 
@@ -24,6 +25,7 @@ const App = () => (
       <Route path="/blog" component={Blog} exact />
       <Route path="/new-post" component={WritePost} exact />
       <Route path="/blog/:id" component={BlogPost} exact />
+      <Route path="/dashboard" component={Dashboard} exact />
       <Route component={Fallback} />
     </Switch>
   </BrowserRouter>
