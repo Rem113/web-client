@@ -26,25 +26,27 @@ const Blog = () => {
   return loading ? (
     <p>Loading...</p>
   ) : (
-    <div className={styles.container}>
-      <h1>Blog</h1>
+      <div className={styles.container}>
+        <h1>Blog</h1>
 
-      <Link className={styles["write-post-button"]} to="/new-post">
-        Write a blog post
+        <Link className={styles["write-post-button"]} to="/new-post">
+          Write a blog post
       </Link>
 
-      {posts.map((post) => (
-        <BlogCard
-          key={post._id}
-          id={post._id}
-          title={post.title}
-          postedAt={post.postedAt}
-        />
-      ))}
+        {posts.map((post) => (
+          <BlogCard
+            key={post._id}
+            id={post._id}
+            title={post.title}
+            author={post.author}
+            postedAt={post.postedAt}
+            numberComments={post.comments.length}
+          />
+        ))}
 
-      <Pagination page={page} maxPage={maxPage} onChangePage={setPage} />
-    </div>
-  )
+        <Pagination page={page} maxPage={maxPage} onChangePage={setPage} />
+      </div>
+    )
 }
 
 export default Blog

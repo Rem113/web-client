@@ -5,7 +5,7 @@ import axios from "axios"
 import styles from "./style.scss"
 
 const WritePost = () => {
-  const [formState, setFormState] = useState({ title: "", content: "" })
+  const [formState, setFormState] = useState({ title: "", content: "", author: localStorage.getItem('name') })
   const [formErrors, setFormErrors] = useState({ title: "", content: "" })
 
   const history = useHistory()
@@ -40,6 +40,7 @@ const WritePost = () => {
             name="title"
             value={formState.title}
             onChange={handleChange}
+            autoComplete="off"
           />
           <small className={styles.error}>{formErrors.title}</small>
         </div>
@@ -54,7 +55,7 @@ const WritePost = () => {
           />
           <small className={styles.error}>{formErrors.content}</small>
         </div>
-        <button class="button" onClick={handleSubmit}>
+        <button className="button" onClick={handleSubmit}>
           Post
         </button>
       </div>

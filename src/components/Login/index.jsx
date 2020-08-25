@@ -39,6 +39,7 @@ const Login = () => {
             name="email"
             value={formState.email}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
           <small className={styles.error}>{formErrors.email}</small>
