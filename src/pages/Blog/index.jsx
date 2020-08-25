@@ -24,15 +24,19 @@ const Blog = () => {
       })
   }, [page])
 
+  const isManager = localStorage.getItem("isManager")
+
   return loading ? (
     <p>Loading...</p>
   ) : (
     <div className={styles.container}>
       <h1>Blog</h1>
 
-      <Link className={styles["write-post-button"]} to="/write-post">
-        Write a blog post
-      </Link>
+      {isManager && (
+        <Link className={styles["write-post-button"]} to="/write-post">
+          Write a blog post
+        </Link>
+      )}
 
       {posts.map((post) => (
         <BlogCard
