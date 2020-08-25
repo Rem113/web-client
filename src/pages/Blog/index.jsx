@@ -1,27 +1,33 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import BlogCard from "../BlogCard/BlogCard"
-import Pagination from "../Pagination"
-import axios from "axios"
+
+import Pagination from "components/Pagination"
+import BlogCard from "components/BlogCard"
 
 import styles from "./style.scss"
+import { getPosts } from "../../api/post"
 
 const Blog = () => {
   const [posts, setPosts] = useState([])
   const [page, setPage] = useState(1)
-  const [maxPage, setMaxPage] = useState(-1)
+  const [maxPage, setMaxPage] = useState()
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
+  const loadPosts = async () => {
     setLoading(true)
-    axios
-      .get("http://localhost:3000/api/post", { params: { page } })
-      .then((res) => {
-        setPosts(res.data.posts)
-        setMaxPage(res.data.pages)
-        setLoading(false)
-      })
+
+    const { posts, pages } = await getPosts(page)
+
+    setPosts(posts)
+    setMaxPage(pages)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    loadPosts()
   }, [page])
+
+  const isManager = localStorage.getItem("isManager") === "true"
 
   return loading ? (
     <p>Loading...</p>
@@ -29,9 +35,11 @@ const Blog = () => {
       <div className={styles.container}>
         <h1>Blog</h1>
 
-        <Link className={styles["write-post-button"]} to="/new-post">
-          Write a blog post
-      </Link>
+        {isManager && (
+          <Link className={styles["write-post-button"]} to="/write-post">
+            Write a blog post
+          </Link>
+        )}
 
         {posts.map((post) => (
           <BlogCard

@@ -4,16 +4,15 @@ import { BrowserRouter, Switch, Route } from "react-router-dom"
 
 import "./config/style-reset.scss"
 
+import ProtectedRoute from "components/ProtectedRoute"
 import Header from "components/Header"
-import Home from "components/Home"
-import Login from "components/Login"
-import Register from "components/Register"
-import Blog from "components/Blog"
-import WritePost from "components/WritePost"
-import BlogPost from "./components/BlogPost"
-import Dashboard from "./components/Dashboard"
-
-const Fallback = () => <></>
+import Home from "pages/Home"
+import Login from "pages/Login"
+import Register from "pages/Register"
+import Blog from "pages/Blog"
+import WritePost from "pages/WritePost"
+import BlogPost from "pages/BlogPost"
+import Dashboard from "pages/Dashboard"
 
 const App = () => (
   <BrowserRouter>
@@ -22,11 +21,10 @@ const App = () => (
       <Route path="/" component={Home} exact />
       <Route path="/login" component={Login} exact />
       <Route path="/register" component={Register} exact />
-      <Route path="/blog" component={Blog} exact />
-      <Route path="/new-post" component={WritePost} exact />
-      <Route path="/blog/:id" component={BlogPost} exact />
-      <Route path="/dashboard" component={Dashboard} exact />
-      <Route component={Fallback} />
+      <ProtectedRoute path="/blog" component={Blog} exact />
+      <ProtectedRoute path="/write-post" component={WritePost} exact />
+      <ProtectedRoute path="/blog/:id" component={BlogPost} exact />
+      <ProtectedRoute path="/dashboard" component={Dashboard} exact />
     </Switch>
   </BrowserRouter>
 )

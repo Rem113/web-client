@@ -6,11 +6,7 @@ import FoodDelivery from "assets/food-delivery.svg"
 import styles from "./style.scss"
 
 const Home = () => {
-  const checkAccessUser = () => localStorage.getItem("token") !== null
-
   const history = useHistory()
-
-  if (checkAccessUser()) history.push("/blog")
 
   return (
     <div className={styles["home-container"]}>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+<<<<<<< HEAD:src/components/BlogPost/index.jsx
 import { Link, useParams, useHistory } from "react-router-dom"
 import { animations } from 'react-animation'
 
@@ -7,6 +8,14 @@ import { formatDistanceToNow, format } from "date-fns"
 
 import styles from "./style.scss"
 import stylesCard from "../BlogCard/style.scss"
+=======
+import { useParams } from "react-router-dom"
+import { format } from "date-fns"
+import ReactMarkdown from "react-markdown"
+
+import styles from "./style.scss"
+import { getPostById } from "../../api/post"
+>>>>>>> cc3e77adc1d14588711d79304dce557fa8cab5c7:src/pages/BlogPost/index.jsx
 
 const BlogPost = () => {
   const [loading, setLoading] = useState(true)
@@ -20,11 +29,21 @@ const BlogPost = () => {
   const { id } = useParams()
   const history = useHistory()
 
+  const loadPost = async () => {
+    const post = await getPostById(id)
+    setPost(post)
+    setLoading(false)
+  }
+
   useEffect(() => {
+<<<<<<< HEAD:src/components/BlogPost/index.jsx
     Axios.get(`http://localhost:3000/api/post/${id}`).then((res) => {
       setPost(res.data)
       setLoading(false)
     }).catch((_) => history.push("/blog"))
+=======
+    loadPost()
+>>>>>>> cc3e77adc1d14588711d79304dce557fa8cab5c7:src/pages/BlogPost/index.jsx
   }, [])
 
   function publishComment() {
@@ -43,7 +62,11 @@ const BlogPost = () => {
         <div className={stylesCard['card']}>
           <h1>{post.title}</h1>
           <h4>Posted on {format(new Date(post.postedAt), "dd/MM/yyyy")} by <strong>{post.author}</strong></h4>
-          <p>{post.content}</p>
+          <ReactMarkdown
+            className={styles.markdown}
+            escapeHtml={false}
+            source={post.content}
+          />
         </div>
 
         <div className={styles["form-group"]}>

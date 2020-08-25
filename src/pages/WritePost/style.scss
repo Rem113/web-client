@@ -24,6 +24,7 @@
       background-color: $secondary;
       padding: 0.75rem;
       border-radius: 5px;
+      resize: none;
 
       &:focus {
         transition: 0.25s;
@@ -34,6 +35,14 @@
 
     .error {
       color: $error;
+    }
+
+    .hint {
+      font-style: italic;
+
+      a {
+        color: $secondary;
+      }
     }
   }
 

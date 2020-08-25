@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import { Link, useHistory, Redirect } from "react-router-dom"
-import axios from "axios"
+import { Link, useHistory } from "react-router-dom"
+import { register } from "api/auth"
 
 import styles from "./style.scss"
 
@@ -28,16 +28,15 @@ const Register = () => {
       [e.target.name]: e.target.value,
     })
 
-  const handleSubmit = () => {
-    axios
-      .post("http://localhost:3000/api/auth/register", formState)
-      .then((res) => {
-        history.push("/")
-      })
-      .catch((err) => setFormErrors(err.response.data))
+  const handleSubmit = async () => {
+    try {
+      await register(formState)
+      history.push("/")
+    } catch (err) {
+      setFormErrors(err.response.data)
+    }
   }
 
-  if (!checkAccessUser()) history.push("/")
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Register</h1>
