@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from "react"
-<<<<<<< HEAD:src/components/BlogPost/index.jsx
-import { Link, useParams, useHistory } from "react-router-dom"
-import { animations } from 'react-animation'
-
-import Axios from "axios"
+import { useParams, useHistory } from "react-router-dom"
 import { formatDistanceToNow, format } from "date-fns"
-
-import styles from "./style.scss"
-import stylesCard from "../BlogCard/style.scss"
-=======
-import { useParams } from "react-router-dom"
-import { format } from "date-fns"
 import ReactMarkdown from "react-markdown"
 
+import Axios from "axios"
+
 import styles from "./style.scss"
+import stylesCard from "../../components/BlogCard/style.scss"
+
 import { getPostById } from "../../api/post"
->>>>>>> cc3e77adc1d14588711d79304dce557fa8cab5c7:src/pages/BlogPost/index.jsx
 
 const BlogPost = () => {
   const [loading, setLoading] = useState(true)
@@ -31,22 +24,17 @@ const BlogPost = () => {
 
   const loadPost = async () => {
     const post = await getPostById(id)
+    post === null ? history.push('/blog') : null
     setPost(post)
     setLoading(false)
   }
 
   useEffect(() => {
-<<<<<<< HEAD:src/components/BlogPost/index.jsx
-    Axios.get(`http://localhost:3000/api/post/${id}`).then((res) => {
-      setPost(res.data)
-      setLoading(false)
-    }).catch((_) => history.push("/blog"))
-=======
     loadPost()
->>>>>>> cc3e77adc1d14588711d79304dce557fa8cab5c7:src/pages/BlogPost/index.jsx
   }, [])
 
   function publishComment() {
+    setWritingComment(!writingComment)
     Axios.post(`http://localhost:3000/api/post/${id}`, comment).then(() => {
       setComment({ ...comment, content: "" })
       Axios.get(`http://localhost:3000/api/post/${id}`).then((res) =>
@@ -70,31 +58,32 @@ const BlogPost = () => {
         </div>
 
         <div className={styles["form-group"]}>
-          <button
-            className={["button", (writingComment === true ? "hidden" : "showed")]}>
-            Add a comment
-          </button>
-
-          <div className={(writingComment === true) ? "showed" : "hidden"}>
-            <textarea
-              type="text"
-              name="content"
-              value={comment.content}
-              onChange={(e) => setComment({ ...comment, [e.target.name]: e.target.value })}
-              rows="5"
-            />
-            <small className={styles.error}>{commentError}</small>
-            <button className="button" onClick={publishComment}>
-              Publish
-        </button>
-          </div>
-
+          {writingComment === true ?
+            <button
+              className={"button"}
+              onClick={() => setWritingComment(!writingComment)}>
+              Add a comment
+          </button> :
+            <>
+              <textarea
+                type="text"
+                name="content"
+                value={comment.content}
+                onChange={(e) => setComment({ ...comment, [e.target.name]: e.target.value })}
+                rows="5"
+                placeholder="Leave a little comment..."
+              />
+              <small className={styles.error}>{commentError}</small>
+              <button className="button" onClick={publishComment}>
+                Publish
+            </button>
+            </>
+          }
         </div>
 
         <hr />
 
         {post.comments
-          .sort((a, b) => a.itemM > b.itemM ? 1 : -1)
           .map((comment, i) =>
             <div key={i} className={stylesCard['card-response']}>
               <h3>{comment.author} · <small style={{ color: "gray" }}>{formatDistanceToNow(new Date(comment.postedAt))} ago</small></h3>

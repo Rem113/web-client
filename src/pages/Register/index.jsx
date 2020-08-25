@@ -1,10 +1,16 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { register } from "api/auth"
 
 import styles from "./style.scss"
 
 const Register = () => {
+  const history = useHistory()
+
+  useEffect(() => {
+    localStorage.getItem('token') !== null ? history.push('/') : null
+  }, [])
+
   const [formState, setFormState] = useState({
     name: "",
     age: "",
@@ -17,10 +23,6 @@ const Register = () => {
     email: "",
     password: "",
   })
-
-  const history = useHistory()
-
-  const checkAccessUser = () => localStorage.getItem("token") === null
 
   const handleChange = (e) =>
     setFormState({
@@ -47,16 +49,18 @@ const Register = () => {
           name="name"
           value={formState.name}
           onChange={handleChange}
+          autoComplete="off"
         />
         <small className={styles.error}>{formErrors.name}</small>
       </div>
       <div className={styles["form-group"]}>
         <label htmlFor="age">Age :</label>
         <input
-          type="text"
+          type="number"
           name="age"
           value={formState.age}
           onChange={handleChange}
+          autoComplete="off"
         />
         <small className={styles.error}>{formErrors.age}</small>
       </div>

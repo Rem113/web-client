@@ -1,14 +1,18 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { login } from "api/auth"
 
 import styles from "./style.scss"
 
 const Login = () => {
+  const history = useHistory()
+
+  useEffect(() => {
+    localStorage.getItem('token') !== null ? history.push('/') : null
+  }, [])
+
   const [formState, setFormState] = useState({ email: "", password: "" })
   const [formErrors, setFormErrors] = useState({ email: "", password: "" })
-
-  const history = useHistory()
 
   const handleChange = (e) =>
     setFormState({
@@ -38,7 +42,6 @@ const Login = () => {
           name="email"
           value={formState.email}
           onChange={handleChange}
-          required
         />
         <small className={styles.error}>{formErrors.email}</small>
       </div>
@@ -49,7 +52,6 @@ const Login = () => {
           name="password"
           value={formState.password}
           onChange={handleChange}
-          required
         />
         <small className={styles.error}>{formErrors.password}</small>
       </div>
