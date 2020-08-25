@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Link, useHistory } from "react-router-dom"
-import axios from "axios"
+
+import { writePost } from "../../api/post"
 
 import styles from "./style.scss"
 
@@ -16,13 +17,14 @@ const WritePost = () => {
       [e.target.name]: e.target.value,
     })
 
-  const handleSubmit = () =>
-    axios
-      .post("http://localhost:3000/api/post", formState)
-      .then((res) => {
-        history.push("/blog")
-      })
-      .catch((err) => setFormErrors(err.response.data))
+  const handleSubmit = async () => {
+    try {
+      const postId = await writePost(formState)
+      history.push(`/blog/${postId}`)
+    } catch (err) {
+      setFormErrors(err.response.data)
+    }
+  }
 
   return (
     <div className={styles.container}>

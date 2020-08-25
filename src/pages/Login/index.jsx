@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link, useHistory } from "react-router-dom"
-import axios from "axios"
+import { login } from "api/auth"
 
 import styles from "./style.scss"
 
@@ -16,16 +16,17 @@ const Login = () => {
       [e.target.name]: e.target.value,
     })
 
-  const handleSubmit = () =>
-    axios
-      .post("http://localhost:3000/api/auth/login", formState)
-      .then((res) => {
-        localStorage.setItem("token", res.data.token)
-        localStorage.setItem("name", res.data.name)
-        localStorage.setItem("isManager", res.data.isManager)
-        history.push("/dashboard")
-      })
-      .catch((err) => setFormErrors(err.response.data))
+  const handleSubmit = async () => {
+    try {
+      const { token, name, isManager } = await login(formState)
+      localStorage.setItem("token", token)
+      localStorage.setItem("name", name)
+      localStorage.setItem("isManager", isManager)
+      history.push("/dashboard")
+    } catch (err) {
+      setFormErrors(err.response.data)
+    }
+  }
 
   return (
     <div className={styles.container}>

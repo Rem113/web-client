@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import Axios from "axios"
 import { format } from "date-fns"
 import ReactMarkdown from "react-markdown"
 
 import styles from "./style.scss"
+import { getPostById } from "../../api/post"
 
 const BlogPost = () => {
   const [loading, setLoading] = useState(true)
@@ -12,11 +12,14 @@ const BlogPost = () => {
 
   const { id } = useParams()
 
+  const loadPost = async () => {
+    const post = await getPostById(id)
+    setPost(post)
+    setLoading(false)
+  }
+
   useEffect(() => {
-    Axios.get(`http://localhost:3000/api/post/${id}`).then((res) => {
-      setPost(res.data)
-      setLoading(false)
-    })
+    loadPost()
   }, [])
 
   return loading ? (

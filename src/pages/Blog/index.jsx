@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import axios from "axios"
 
 import Pagination from "components/Pagination"
 import BlogCard from "components/BlogCard"
 
 import styles from "./style.scss"
+import { getPosts } from "../../api/post"
 
 const Blog = () => {
   const [posts, setPosts] = useState([])
@@ -13,18 +13,21 @@ const Blog = () => {
   const [maxPage, setMaxPage] = useState()
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
+  const loadPosts = async () => {
     setLoading(true)
-    axios
-      .get("http://localhost:3000/api/post", { params: { page } })
-      .then((res) => {
-        setPosts(res.data.posts)
-        setMaxPage(res.data.pages)
-        setLoading(false)
-      })
+
+    const { posts, pages } = await getPosts(page)
+
+    setPosts(posts)
+    setMaxPage(pages)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    loadPosts()
   }, [page])
 
-  const isManager = localStorage.getItem("isManager")
+  const isManager = localStorage.getItem("isManager") === "true"
 
   return loading ? (
     <p>Loading...</p>
