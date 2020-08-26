@@ -1,7 +1,29 @@
-.container {
-  padding-top: 200px;
+@import "../../config/style-variables.scss";
 
-  .map {
-    height: 500px;
+.container {
+  margin-top: 200px;
+
+  h1 {
+    font-family: "Zilla Slab";
+    text-align: center;
+    font-size: 3em;
+  }
+
+  .button {
+    margin: 20px 0;
+    width: fit-content;
+    background-color: $primary;
+    color: $bg-color;
+    font-size: 1em;
+    padding: 0.6em 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+
+    &:hover {
+      background-color: darken($primary, 5);
+    }
   }
 }

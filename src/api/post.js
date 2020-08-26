@@ -10,7 +10,7 @@ export const getPosts = (page = 1) =>
 // Authenticated
 // Post
 export const getPostById = (id) =>
-  axios.get(`http://localhost:3000/api/post/${id}`).then((res) => res.data).catch(e => null)
+  axios.get(`http://localhost:3000/api/post/${id}`).then((res) => res.data)
 
 // Authenticated/Manager
 // String

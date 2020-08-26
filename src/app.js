@@ -13,6 +13,7 @@ import Blog from "pages/Blog"
 import WritePost from "pages/WritePost"
 import BlogPost from "pages/BlogPost"
 import Dashboard from "pages/Dashboard"
+import ScheduleDelivery from "pages/ScheduleDelivery"
 
 const App = () => (
   <BrowserRouter>
@@ -25,6 +26,11 @@ const App = () => (
       <ProtectedRoute path="/write-post" component={WritePost} exact />
       <ProtectedRoute path="/blog/:id" component={BlogPost} exact />
       <ProtectedRoute path="/dashboard" component={Dashboard} exact />
+      <ProtectedRoute
+        path="/delivery/schedule"
+        component={ScheduleDelivery}
+        exact
+      />
     </Switch>
   </BrowserRouter>
 )

@@ -33,6 +33,10 @@
       cursor: pointer;
       text-decoration: none;
       display: block;
+
+      &:hover {
+        background-color: darken($primary, 5);
+      }
     }
 
     textarea {
