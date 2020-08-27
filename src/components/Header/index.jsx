@@ -63,6 +63,12 @@ const Header = () => {
         </Link>
       </li>
       <li>
+        <Link className={pathname === "/chat" ? styles.active : null} to="/chat">Chat</Link>
+      </li>
+      <li>
+        <Link className={pathname === "/delivers" ? styles.active : null} to="/delivers">Delivers</Link>
+      </li>
+      <li>
         <a onClick={logout}>Logout</a>
       </li>
     </>

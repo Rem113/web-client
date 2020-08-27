@@ -32,7 +32,11 @@ const Register = () => {
 
   const handleSubmit = async () => {
     try {
-      await register(formState)
+      /*var a = */ await register(formState)
+      // console.log(a)
+      // localStorage.setItem("token", token)
+      // localStorage.setItem("name", name)
+      // localStorage.setItem("isManager", isManager)
       history.push("/")
     } catch (err) {
       setFormErrors(err.response.data)
