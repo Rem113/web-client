@@ -1,21 +1,16 @@
 @import "../../config/style-variables.scss";
 
 .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-
   .title {
     font-family: "Zilla Slab";
-    font-size: 2.75rem;
+    font-size: 3rem;
     text-align: center;
-    margin: 0;
+    margin-top: 200px;
   }
 
   .form-group {
     margin-top: 1rem;
+    margin-bottom: 40px;
     width: 100%;
 
     label {
@@ -43,6 +38,8 @@
   }
 
   button {
+    position: relative;
+    left: 35%;
     margin-top: 1.5em;
     background-color: $primary;
     color: $bg-color;

@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom"
 import { formatDistanceToNow, format } from "date-fns"
 import ReactMarkdown from "react-markdown"
 
-import Axios from "axios"
+import axios from "axios"
 
 import styles from "./style.scss"
 import stylesCard from "../../components/BlogCard/style.scss"
@@ -35,12 +35,14 @@ const BlogPost = () => {
 
   function publishComment() {
     setWritingComment(!writingComment)
-    Axios.post(`http://localhost:3000/api/post/${id}`, comment).then(() => {
-      setComment({ ...comment, content: "" })
-      Axios.get(`http://localhost:3000/api/post/${id}`).then((res) =>
-        setPost(res.data)
-      )
-    })
+    axios.post(`http://localhost:3000/api/post/${id}`, comment)
+      .then(() => {
+        setComment({ ...comment, content: "" })
+        axios.get(`http://localhost:3000/api/post/${id}`)
+          .then((res) =>
+            setPost(res.data)
+          )
+      })
   }
 
   return loading ? (
