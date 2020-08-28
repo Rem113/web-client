@@ -66,7 +66,7 @@ const Header = () => {
         <Link className={pathname === "/chat" ? styles.active : null} to="/chat">Chat</Link>
       </li>
       <li>
-        <Link className={pathname === "/delivers" ? styles.active : null} to="/delivers">Delivers</Link>
+        <Link className={pathname === "/deliverers" ? styles.active : null} to="/deliverers">Deliverers</Link>
       </li>
       <li>
         <a onClick={logout}>Logout</a>

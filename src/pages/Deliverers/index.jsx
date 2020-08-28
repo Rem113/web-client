@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react"
-import { getDelivers } from "../../api/auth"
+import { getDeliverers } from "../../api/auth"
 
 import axios from 'axios'
 import styles from "./style.scss"
 
-const Delivers = () => {
-    const [delivers, setDelivers] = useState([])
+const Deliverers = () => {
+    const [deliverers, setDeliverers] = useState([])
     const [modifiedFields, setModifiedFields] = useState({})
 
-    const getDelivers = () => {
-        axios.get('http://localhost:3000/api/auth/delivers')
+    const getDeliverers = () => {
+        axios.get('http://localhost:3000/api/auth/deliverers')
             .then((res) => {
-                var delivers = res.data
+                var deliverers = res.data
 
-                delivers.forEach(element => {
+                deliverers.forEach(element => {
                     element.isChanged = false
                 });
 
-                setDelivers(delivers)
+                setDeliverers(deliverers)
             })
     }
 
@@ -29,34 +29,34 @@ const Delivers = () => {
     }
 
     useEffect(() => {
-        getDelivers()
+        getDeliverers()
     }, [])
 
     const handleChange = (e) => {
         const [name, id] = e.target.name.split(" ")
         const value = e.target.value
 
-        let newDelivers = [...delivers]
-        newDelivers[id][name] = (name === "age" ? Number(value) : value)
-        newDelivers[id].isChanged = true
+        let newDeliverers = [...deliverers]
+        newDeliverers[id][name] = (name === "age" ? Number(value) : value)
+        newDeliverers[id].isChanged = true
 
         e.target.style.backgroundColor = "#40e440"
         setModifiedFields({ ...modifiedFields, [e.target.name]: e.target })
 
-        setDelivers(newDelivers)
+        setDeliverers(newDeliverers)
     }
 
     const handleSaveChanges = async () => {
-        const deliversChanged = delivers.filter(deliver => deliver.isChanged === true)
+        const deliverersChanged = deliverers.filter(deliver => deliver.isChanged === true)
 
-        await axios.put('http://localhost:3000/api/auth/delivers', deliversChanged)
-        getDelivers()
+        await axios.put('http://localhost:3000/api/auth/deliverers', deliverersChanged)
+        getDeliverers()
         removeChangedColor()
     }
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>Delivers</h1>
+            <h1 className={styles.title}>Deliverers</h1>
             <div className={styles['form-group']}>
 
                 <table>
@@ -68,7 +68,7 @@ const Delivers = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {delivers.map((deliver, i) =>
+                        {deliverers.map((deliver, i) =>
                             <tr key={i}>
                                 <td><input type="text" name={"name " + i} onChange={handleChange} value={deliver.name} /></td>
                                 <td><input type="number" name={"age " + i} onChange={handleChange} value={deliver.age} /></td>
@@ -85,4 +85,4 @@ const Delivers = () => {
     )
 }
 
-export default Delivers
+export default Deliverers

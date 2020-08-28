@@ -11,9 +11,9 @@ export const register = (data) =>
     .post("http://localhost:3000/api/auth/register", data)
     .then((res) => res.data)
 
-export const getDelivers = () =>
+export const getDeliverers = () =>
   axios
-    .get("http://localhost:3000/api/auth/delivers", {}, {
+    .get("http://localhost:3000/api/auth/deliverers", {}, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
