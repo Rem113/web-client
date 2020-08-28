@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import socketIO from "socket.io"
+import socketIO from "socket.io-client"
 
 import styles from "./style.scss"
 
-const ENDPOINT = "http://127.0.0.1:3005"
+const ENDP = "//localhost:3000"
 
 const Chat = () => {
 
-    // const io = socketIO(ENDPOINT)
-    // io.on('message', data => {
-    //     console.log(data)
-    // })
+    useEffect(() => {
+        var socket = socketIO.connect(ENDP)
+        socket.on('c', () => { "C" })
+    }, [])
 
     return (
         <div className={styles.container}>
