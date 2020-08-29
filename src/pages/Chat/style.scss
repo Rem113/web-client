@@ -20,10 +20,21 @@
     flex-direction: column;
     margin-top: 1rem;
     width: 70%;
+    height: 40%;
+    margin-bottom: 100px;
 
     label {
       display: block;
       margin-bottom: 0.35rem;
+    }
+
+    ::placeholder {
+      color: #aaaaaa;
+    }
+
+    .hint {
+      font-style: italic;
+      color: $green;
     }
 
     input {

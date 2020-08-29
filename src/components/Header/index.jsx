@@ -15,6 +15,7 @@ const Header = () => {
   const logout = () => {
     localStorage.clear()
     history.push("/")
+    return;
   }
 
   const GuestLinks = () => (
@@ -43,6 +44,8 @@ const Header = () => {
     </>
   )
 
+  const isManager = localStorage.getItem('isManager') == "true"
+
   const UserLinks = () => (
     <>
       <li>
@@ -65,9 +68,10 @@ const Header = () => {
       <li>
         <Link className={pathname === "/chat" ? styles.active : null} to="/chat">Chat</Link>
       </li>
-      <li>
+
+      {isManager && (<li>
         <Link className={pathname === "/deliverers" ? styles.active : null} to="/deliverers">Deliverers</Link>
-      </li>
+      </li>)}
       <li>
         <a onClick={logout}>Logout</a>
       </li>

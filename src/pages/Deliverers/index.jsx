@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useHistory } from "react-router-dom"
 import { getDeliverers } from "../../api/auth"
 
 import axios from 'axios'
@@ -7,6 +8,8 @@ import styles from "./style.scss"
 const Deliverers = () => {
     const [deliverers, setDeliverers] = useState([])
     const [modifiedFields, setModifiedFields] = useState({})
+
+    const history = useHistory()
 
     const getDeliverers = () => {
         axios.get('http://localhost:3000/api/auth/deliverers')
@@ -29,7 +32,11 @@ const Deliverers = () => {
     }
 
     useEffect(() => {
-        getDeliverers()
+        if (localStorage.getItem('isManager') !== "true") {
+            history.push('/')
+            return
+        }
+        else getDeliverers()
     }, [])
 
     const handleChange = (e) => {
@@ -79,7 +86,6 @@ const Deliverers = () => {
                 </table>
 
                 <button onClick={handleSaveChanges}>Save Changes</button>
-
             </div>
         </div>
     )
