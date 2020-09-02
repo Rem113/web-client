@@ -6,7 +6,6 @@ import ReactMarkdown from "react-markdown"
 import axios from "axios"
 
 import styles from "./style.scss"
-import stylesCard from "../../components/BlogCard/style.scss"
 
 import { getPostById } from "../../api/post"
 
@@ -50,7 +49,7 @@ const BlogPost = () => {
     <p>Loading...</p>
   ) : (
     <div className={styles.container}>
-      <div className={stylesCard["card"]}>
+      <div>
         <h1>{post.title}</h1>
         <h4>
           Posted on {format(new Date(post.postedAt), "dd/MM/yyyy")} by{" "}
@@ -63,6 +62,10 @@ const BlogPost = () => {
         />
       </div>
 
+      <br />
+
+      <h1>Comments</h1>
+
       <div className={styles["form-group"]}>
         {writingComment === true ? (
           <button
@@ -72,29 +75,29 @@ const BlogPost = () => {
             Add a comment
           </button>
         ) : (
-          <>
+          <div>
+            <label htmlFor="comment">Comment: </label>
             <textarea
-              type="text"
+              id="comment"
               name="content"
               value={comment.content}
               onChange={(e) =>
                 setComment({ ...comment, [e.target.name]: e.target.value })
               }
               rows="5"
-              placeholder="Leave a little comment..."
             />
             <small className={styles.error}>{commentError}</small>
             <button className="button" onClick={publishComment}>
               Publish
             </button>
-          </>
+          </div>
         )}
       </div>
 
-      <hr />
+      <br />
 
       {post.comments.map((comment, i) => (
-        <div key={i} className={stylesCard["card-response"]}>
+        <div key={i}>
           <h3>
             {comment.author} ·{" "}
             <small style={{ color: "gray" }}>
