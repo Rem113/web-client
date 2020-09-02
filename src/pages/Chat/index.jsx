@@ -1,16 +1,20 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import io from "socket.io-client"
 import { format, parseISO } from "date-fns"
 
 import styles from "./style.scss"
 
-const socket = io("http://localhost:3000")
-
 const Chat = () => {
   const [chat, setChat] = useState(false)
   const [input, setInput] = useState("")
   const [messages, setMessages] = useState([])
+  const socket = useRef(null)
+
+  useEffect(() => {
+    socket.current = io("http://localhost:3000")
+    return () => socket.current.disconnect()
+  }, [])
 
   const isManager = sessionStorage.getItem("isManager") === "true"
 
@@ -21,30 +25,30 @@ const Chat = () => {
 
   const startChat = () => {
     setChat(true)
-    socket.emit("start", {
+    socket.current.emit("start", {
       user: input,
       isManager,
     })
     setInput("")
 
-    socket.on("message", (message) => {
+    socket.current.on("message", (message) => {
       setMessages((messages) => [...messages, { isInfo: false, ...message }])
       scrollToBottom()
     })
 
-    socket.on("info", (message) => {
+    socket.current.on("info", (message) => {
       setMessages((messages) => [...messages, { isInfo: true, ...message }])
       scrollToBottom()
     })
 
-    socket.on("back-up", (backup) => {
+    socket.current.on("back-up", (backup) => {
       setMessages(backup.map((message) => ({ isInfo: false, ...message })))
       scrollToBottom()
     })
   }
 
   const sendMessage = () => {
-    input && socket.emit("message", input)
+    input && socket.current.emit("message", input)
     setInput("")
   }
 
