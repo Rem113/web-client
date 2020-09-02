@@ -27,34 +27,34 @@ const Blog = () => {
     loadPosts()
   }, [page])
 
-  const isManager = localStorage.getItem("isManager") === "true"
+  const isManager = sessionStorage.getItem("isManager") === "true"
 
   return loading ? (
     <p>Loading...</p>
   ) : (
-      <div className={styles.container}>
-        <h1>Blog</h1>
+    <div className={styles.container}>
+      <h1>Blog</h1>
 
-        {isManager && (
-          <Link className={styles["write-post-button"]} to="/write-post">
-            Write a blog post
-          </Link>
-        )}
+      {isManager && (
+        <Link className={styles["write-post-button"]} to="/write-post">
+          Write a blog post
+        </Link>
+      )}
 
-        {posts.map((post) => (
-          <BlogCard
-            key={post._id}
-            id={post._id}
-            title={post.title}
-            author={post.author}
-            postedAt={post.postedAt}
-            numberComments={post.comments.length}
-          />
-        ))}
+      {posts.map((post) => (
+        <BlogCard
+          key={post._id}
+          id={post._id}
+          title={post.title}
+          author={post.author}
+          postedAt={post.postedAt}
+          numberComments={post.comments.length}
+        />
+      ))}
 
-        <Pagination page={page} maxPage={maxPage} onChangePage={setPage} />
-      </div>
-    )
+      <Pagination page={page} maxPage={maxPage} onChangePage={setPage} />
+    </div>
+  )
 }
 
 export default Blog

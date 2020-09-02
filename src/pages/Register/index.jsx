@@ -8,7 +8,7 @@ const Register = () => {
   const history = useHistory()
 
   useEffect(() => {
-    localStorage.getItem('token') !== null ? history.push('/') : null
+    sessionStorage.getItem("token") !== null ? history.push("/") : null
   }, [])
 
   const [formState, setFormState] = useState({
@@ -34,9 +34,9 @@ const Register = () => {
     try {
       /*var a = */ await register(formState)
       // console.log(a)
-      // localStorage.setItem("token", token)
-      // localStorage.setItem("name", name)
-      // localStorage.setItem("isManager", isManager)
+      // sessionStorage.setItem("token", token)
+      // sessionStorage.setItem("name", name)
+      // sessionStorage.setItem("isManager", isManager)
       history.push("/")
     } catch (err) {
       setFormErrors(err.response.data)

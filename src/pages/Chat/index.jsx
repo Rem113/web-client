@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import io from "socket.io-client"
+import { format, parseISO } from "date-fns"
 
 import styles from "./style.scss"
 
@@ -11,60 +12,78 @@ const Chat = () => {
   const [input, setInput] = useState("")
   const [messages, setMessages] = useState([])
 
-  const focusMessageBox = () => document.getElementById("message-box").focus()
+  const isManager = sessionStorage.getItem("isManager") === "true"
+
+  const scrollToBottom = () => {
+    const chatbox = document.getElementById("chatbox")
+    chatbox.scrollTop = chatbox.scrollHeight
+  }
 
   const startChat = () => {
     setChat(true)
-    socket.emit("start", input)
+    socket.emit("start", {
+      user: input,
+      isManager,
+    })
     setInput("")
-    focusMessageBox()
 
-    socket.on("message", ({ user, message }) => {
-      setMessages((messages) => [...messages, { isInfo: false, user, message }])
+    socket.on("message", (message) => {
+      setMessages((messages) => [...messages, { isInfo: false, ...message }])
+      scrollToBottom()
     })
 
-    socket.on("info", ({ user, info }) => {
-      setMessages((messages) => [...messages, { isInfo: true, user, info }])
+    socket.on("info", (message) => {
+      setMessages((messages) => [...messages, { isInfo: true, ...message }])
+      scrollToBottom()
     })
 
     socket.on("back-up", (backup) => {
-      setMessages(backup.map((m) => ({ isInfo: false, ...m })))
+      setMessages(backup.map((message) => ({ isInfo: false, ...message })))
+      scrollToBottom()
     })
   }
 
   const sendMessage = () => {
     input && socket.emit("message", input)
     setInput("")
-    focusMessageBox()
   }
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Chat</h1>
-      <div className={styles["form-group"]}>
-        <input
-          id="message-box"
-          autoFocus={true}
-          autoComplete="off"
-          placeholder={chat ? "Message" : "Username"}
-          onChange={({ target }) => setInput(target.value)}
-          value={input}
-        />
-
-        {chat && <button onClick={sendMessage}>Send a message</button>}
-        {!chat && <button onClick={startChat}>Start a chat</button>}
-
-        <hr />
-
+      <div
+        id="chatbox"
+        className={styles.chatbox}
+        style={{ display: chat ? "block" : "none" }}
+      >
         {messages.map((message, i) => (
-          <p className={message.isInfo ? styles.hint : styles.message} key={i}>
-            <strong>
+          <p className={message.isInfo ? styles.info : styles.message} key={i}>
+            <span className={styles.date}>
+              {format(parseISO(message.date), "HH:mm:ss ")}
+            </span>
+            <strong
+              className={message.isManager ? styles.manager : styles.user}
+            >
               {message.user}
               {message.isInfo ? " " : ": "}
             </strong>
             {message.isInfo ? message.info : message.message}
           </p>
         ))}
+      </div>
+      <div className={styles["chatbox-action"]}>
+        {chat || <label htmlFor="message-box">Username: </label>}
+        <input
+          id="message-box"
+          autoComplete="off"
+          onChange={({ target }) => setInput(target.value)}
+          onKeyDown={({ key }) =>
+            key === "Enter" && (chat ? sendMessage() : startChat())
+          }
+          value={input}
+        />
+        {chat && <button onClick={sendMessage}>Send</button>}
+        {!chat && <button onClick={startChat}>Join</button>}
       </div>
     </div>
   )

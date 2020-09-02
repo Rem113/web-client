@@ -10,7 +10,7 @@ const Login = () => {
 
   const history = useHistory()
 
-  const checkAccessUser = () => localStorage.getItem("token") === null
+  const checkAccessUser = () => sessionStorage.getItem("token") === null
 
   const handleChange = (e) =>
     setFormState({
@@ -22,8 +22,8 @@ const Login = () => {
     axios
       .post("http://localhost:3000/api/auth/login", formState)
       .then((res) => {
-        localStorage.setItem("token", res.data.token)
-        localStorage.setItem("name", res.data.name)
+        sessionStorage.setItem("token", res.data.token)
+        sessionStorage.setItem("name", res.data.name)
         history.push("/")
       })
       .catch((err) => setFormErrors(err.response.data))

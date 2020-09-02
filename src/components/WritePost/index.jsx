@@ -5,13 +5,17 @@ import axios from "axios"
 import styles from "./style.scss"
 
 const WritePost = () => {
-  const [formState, setFormState] = useState({ title: "", content: "", author: localStorage.getItem('name') })
+  const [formState, setFormState] = useState({
+    title: "",
+    content: "",
+    author: sessionStorage.getItem("name"),
+  })
   const [formErrors, setFormErrors] = useState({ title: "", content: "" })
 
   const history = useHistory()
 
   function checkAccessUser() {
-    if (localStorage.getItem("token") === null) return false
+    if (sessionStorage.getItem("token") === null) return false
     else return true
   }
 

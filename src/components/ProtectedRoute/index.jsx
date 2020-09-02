@@ -4,7 +4,7 @@ import { Route, useHistory } from "react-router-dom"
 const ProtectedRoute = (props) => {
   const history = useHistory()
 
-  if (localStorage.getItem("token") === null) {
+  if (sessionStorage.getItem("token") === null) {
     history.push("/login")
     return <></>
   }

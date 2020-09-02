@@ -6,7 +6,11 @@ import { writePost } from "../../api/post"
 import styles from "./style.scss"
 
 const WritePost = () => {
-  const [formState, setFormState] = useState({ title: "", content: "", author: localStorage.getItem('name') })
+  const [formState, setFormState] = useState({
+    title: "",
+    content: "",
+    author: sessionStorage.getItem("name"),
+  })
   const [formErrors, setFormErrors] = useState({ title: "", content: "" })
 
   const history = useHistory()
@@ -51,7 +55,11 @@ const WritePost = () => {
         />
         <small className={styles.hint}>
           Content is displayed as markdown. Edit markdown{" "}
-          <a href="https://liyasthomas.github.io/marcdown/" target="blank" tabIndex="-1">
+          <a
+            href="https://liyasthomas.github.io/marcdown/"
+            target="blank"
+            tabIndex="-1"
+          >
             here
           </a>
           .

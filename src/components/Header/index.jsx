@@ -7,13 +7,13 @@ const Header = () => {
   const { pathname } = useLocation()
   const history = useHistory()
 
-  let token = localStorage.getItem("token")
+  let token = sessionStorage.getItem("token")
   let name = null
 
-  if (token !== null) name = localStorage.getItem("name")
+  if (token !== null) name = sessionStorage.getItem("name")
 
   const logout = () => {
-    localStorage.clear()
+    sessionStorage.clear()
     history.push("/")
   }
 
@@ -43,7 +43,7 @@ const Header = () => {
     </>
   )
 
-  const isManager = localStorage.getItem("isManager") == "true"
+  const isManager = sessionStorage.getItem("isManager") == "true"
 
   const UserLinks = () => (
     <>

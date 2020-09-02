@@ -13,9 +13,13 @@ export const register = (data) =>
 
 export const getDeliverers = () =>
   axios
-    .get("http://localhost:3000/api/auth/deliverers", {}, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
+    .get(
+      "http://localhost:3000/api/auth/deliverers",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      }
+    )
     .then((res) => res.data)
