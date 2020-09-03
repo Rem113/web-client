@@ -28,7 +28,8 @@
       width: 100%;
       resize: none;
 
-      &:focus {
+      &:focus,
+      &:hover {
         transition: 0.25s;
         background-color: lighten($primary, 15);
         outline: none;

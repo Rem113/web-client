@@ -16,7 +16,7 @@ const Chat = () => {
     return () => socket.current.disconnect()
   }, [])
 
-  const isManager = sessionStorage.getItem("isManager") === "true"
+  const manager = sessionStorage.getItem("manager") === "true"
 
   const scrollToBottom = () => {
     const chatbox = document.getElementById("chatbox")
@@ -27,7 +27,7 @@ const Chat = () => {
     setChat(true)
     socket.current.emit("start", {
       user: input,
-      isManager,
+      manager,
     })
     setInput("")
 
@@ -65,9 +65,7 @@ const Chat = () => {
             <span className={styles.date}>
               {format(parseISO(message.date), "HH:mm:ss ")}
             </span>
-            <strong
-              className={message.isManager ? styles.manager : styles.user}
-            >
+            <strong className={message.manager ? styles.manager : styles.user}>
               {message.user}
               {message.isInfo ? " " : ": "}
             </strong>

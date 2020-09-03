@@ -36,7 +36,7 @@ const Register = () => {
       // console.log(a)
       // sessionStorage.setItem("token", token)
       // sessionStorage.setItem("name", name)
-      // sessionStorage.setItem("isManager", isManager)
+      // sessionStorage.setItem("manager", manager)
       history.push("/")
     } catch (err) {
       setFormErrors(err.response.data)

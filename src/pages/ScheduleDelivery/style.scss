@@ -57,7 +57,8 @@
         height: fit-content;
         border-radius: 5px;
 
-        &:focus {
+        &:focus,
+        &:hover {
           transition: 0.25s;
           background-color: lighten($primary, 15);
           outline: none;

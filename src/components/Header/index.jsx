@@ -43,7 +43,7 @@ const Header = () => {
     </>
   )
 
-  const isManager = sessionStorage.getItem("isManager") == "true"
+  const manager = sessionStorage.getItem("manager") == "true"
 
   const UserLinks = () => (
     <>
@@ -73,7 +73,7 @@ const Header = () => {
         </Link>
       </li>
 
-      {isManager && (
+      {manager && (
         <li>
           <Link
             className={pathname === "/deliverers" ? styles.active : null}

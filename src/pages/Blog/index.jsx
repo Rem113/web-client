@@ -27,7 +27,7 @@ const Blog = () => {
     loadPosts()
   }, [page])
 
-  const isManager = sessionStorage.getItem("isManager") === "true"
+  const manager = sessionStorage.getItem("manager") === "true"
 
   return loading ? (
     <p>Loading...</p>
@@ -35,7 +35,7 @@ const Blog = () => {
     <div className={styles.container}>
       <h1>Blog</h1>
 
-      {isManager && (
+      {manager && (
         <Link className={styles["write-post-button"]} to="/write-post">
           Write a blog post
         </Link>

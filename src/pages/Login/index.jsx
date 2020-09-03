@@ -22,10 +22,10 @@ const Login = () => {
 
   const handleSubmit = async () => {
     try {
-      const { token, name, isManager } = await login(formState)
+      const { token, name, manager } = await login(formState)
       sessionStorage.setItem("token", token)
       sessionStorage.setItem("name", name)
-      sessionStorage.setItem("isManager", isManager)
+      sessionStorage.setItem("manager", manager)
       history.push("/dashboard")
     } catch (err) {
       setFormErrors(err.response.data)
