@@ -11,7 +11,13 @@ const Login = () => {
     sessionStorage.getItem("token") !== null ? history.push("/") : null
   }, [])
 
-  const [formState, setFormState] = useState({ email: "", password: "" })
+  const [formState, setFormState] = useState({
+    email:
+      history.location.state.email !== undefined
+        ? history.location.state.email
+        : "",
+    password: "",
+  })
   const [formErrors, setFormErrors] = useState({ email: "", password: "" })
 
   const handleChange = (e) =>
@@ -28,7 +34,10 @@ const Login = () => {
       sessionStorage.setItem("manager", manager)
       history.push("/dashboard")
     } catch (err) {
-      setFormErrors(err.response.data)
+      if (err.status === 404)
+        setFormErrors({ ...formErrors, email: err.response.data })
+      else if (err.status === 400)
+        setFormErrors({ ...formErrors, password: err.response.data })
     }
   }
 

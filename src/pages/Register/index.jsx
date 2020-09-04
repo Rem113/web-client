@@ -32,14 +32,11 @@ const Register = () => {
 
   const handleSubmit = async () => {
     try {
-      /*var a = */ await register(formState)
-      // console.log(a)
-      // sessionStorage.setItem("token", token)
-      // sessionStorage.setItem("name", name)
-      // sessionStorage.setItem("manager", manager)
-      history.push("/")
+      await register(formState)
+      history.push({ pathname: "/login", state: { email: formState.email } })
     } catch (err) {
-      setFormErrors(err.response.data)
+      if (err.status === 409)
+        setFormErrors({ ...formErrors, email: err.response.data })
     }
   }
 
