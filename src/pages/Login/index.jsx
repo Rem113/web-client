@@ -13,9 +13,7 @@ const Login = () => {
 
   const [formState, setFormState] = useState({
     email:
-      history.location.state.email !== undefined
-        ? history.location.state.email
-        : "",
+      history.location.state !== undefined ? history.location.state.email : "",
     password: "",
   })
   const [formErrors, setFormErrors] = useState({ email: "", password: "" })

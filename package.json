@@ -13,6 +13,7 @@
     "assets": "./src/assets",
     "components": "./src/components",
     "config": "./src/config",
+    "core": "./src/core",
     "pages": "./src/pages"
   },
   "dependencies": {

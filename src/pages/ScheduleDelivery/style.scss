@@ -3,11 +3,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 70%;
-  flex-direction: column;
   justify-content: center;
-  height: 100%;
-  margin: 0 auto;
+  margin: 8rem 1rem;
 
   h1 {
     font-family: "Zilla Slab";
@@ -48,7 +45,7 @@
         margin-bottom: 0.5rem;
       }
 
-      input {
+      .input {
         grid-row: 1;
         grid-column: 1/11;
         border: none;
@@ -65,7 +62,7 @@
         }
       }
 
-      button {
+      .button {
         grid-row: 1;
         grid-column: 12/13;
         width: fit-content;
@@ -85,7 +82,7 @@
     display: flex;
     justify-content: space-evenly;
 
-    button {
+    .button {
       margin: 0;
     }
   }
@@ -94,15 +91,16 @@
 @media screen and (min-width: 820px) {
   .container {
     max-width: 600px;
+    margin: 10rem auto;
 
-    button {
+    .button {
       padding: 0.5rem 2rem;
     }
 
     .actions {
       justify-content: start;
 
-      button {
+      .button {
         margin-right: 1rem;
       }
     }
