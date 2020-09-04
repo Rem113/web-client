@@ -21,3 +21,10 @@ export const updateDeliverer = (id, { name, age, email }) =>
       },
     }
   )
+
+export const scheduleDelivery = (data) =>
+  axios.post("http://localhost:3000/api/delivery/", data, {
+    headers: {
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    },
+  })

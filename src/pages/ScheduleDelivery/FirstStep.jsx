@@ -3,7 +3,17 @@ import { v4 as uuid } from "uuid"
 
 import styles from "./style.scss"
 
-const FirstStep = ({ addresses, setAddresses, submit }) => (
+const FirstStep = ({
+  food,
+  setFood,
+  medicine,
+  setMedicine,
+  checkboxesError,
+  setCheckboxesError,
+  addresses,
+  setAddresses,
+  submit,
+}) => (
   <>
     <h3>Addresses</h3>
     <div className={styles.inputs}>
@@ -45,6 +55,32 @@ const FirstStep = ({ addresses, setAddresses, submit }) => (
           <small className={styles.error}>{item.error}</small>
         </div>
       ))}
+      <div className={styles["form-group"]}>
+        <input
+          name="food"
+          type="checkbox"
+          checked={food}
+          onChange={(e) => {
+            setFood(e.target.checked)
+            setCheckboxesError("")
+          }}
+        />
+        <label htmlFor="food">Food</label>
+      </div>
+      <div className={styles["form-group"]}>
+        <input
+          name="medicine"
+          type="checkbox"
+          checked={medicine}
+          onChange={(e) => {
+            setMedicine(e.target.checked)
+            setCheckboxesError("")
+          }}
+        />
+        <label htmlFor="medicine">Medicine</label>
+        <br />
+        <small className={styles.error}>{checkboxesError}</small>
+      </div>
     </div>
 
     <div className={styles.actions}>
