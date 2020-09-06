@@ -26,8 +26,9 @@ const Login = () => {
 
   const handleSubmit = async () => {
     try {
-      const { token, name, manager } = await login(formState)
+      const { id, token, name, manager } = await login(formState)
       sessionStorage.setItem("token", token)
+      sessionStorage.setItem("id", id)
       sessionStorage.setItem("name", name)
       sessionStorage.setItem("manager", manager)
       history.push("/dashboard")

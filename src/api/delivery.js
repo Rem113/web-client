@@ -28,3 +28,12 @@ export const scheduleDelivery = (data) =>
       Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     },
   })
+
+export const getDeliveriesForDeliverer = (id) =>
+  axios
+    .get(`http://localhost:3000/api/delivery/deliverer/${id}`, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => res.data)
