@@ -2,20 +2,35 @@ import React, { useState, useEffect } from "react"
 
 import MapView from "components/MapView"
 
-import { getDeliveriesForDeliverer } from "api/delivery"
+import {
+  getDeliveriesForToday,
+  getDeliveriesForDeliverer,
+  markDeliveryAsDone,
+} from "api/delivery"
 
 import styles from "./style.scss"
 
 const Deliveries = () => {
   const [deliveries, setDeliveries] = useState([])
 
+  const manager = sessionStorage.getItem("manager") === "true"
   const userId = sessionStorage.getItem("id")
 
   useEffect(() => {
-    getDeliveriesForDeliverer(userId).then((deliveries) =>
-      setDeliveries(deliveries)
-    )
+    if (manager)
+      getDeliveriesForToday().then((deliveries) => setDeliveries(deliveries))
+    else
+      getDeliveriesForDeliverer(userId).then((deliveries) =>
+        setDeliveries(deliveries)
+      )
   }, [])
+
+  const handleMarkerClick = async (id) => {
+    if (confirm("Is the delivery done?")) {
+      await markDeliveryAsDone(id)
+      setDeliveries(deliveries.filter((d) => d.id !== id))
+    }
+  }
 
   return (
     <>
@@ -23,9 +38,7 @@ const Deliveries = () => {
       {deliveries.length === 0 ? (
         <p>You have no delivery for today</p>
       ) : (
-        <MapView
-          markers={deliveries.map((d) => [d.address.lat, d.address.lon])}
-        />
+        <MapView deliveries={deliveries} onMarkerClick={handleMarkerClick} />
       )}
     </>
   )

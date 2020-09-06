@@ -16,6 +16,7 @@ import Dashboard from "pages/Dashboard"
 import ScheduleDelivery from "pages/ScheduleDelivery"
 import Chat from "pages/Chat"
 import Deliverers from "pages/Deliverers"
+import DispatchDelivery from "pages/DispatchDelivery"
 
 const App = () => (
   <BrowserRouter>
@@ -28,9 +29,18 @@ const App = () => (
       <ProtectedRoute path="/write-post" component={WritePost} exact />
       <ProtectedRoute path="/blog/:id" component={BlogPost} exact />
       <ProtectedRoute path="/dashboard" component={Dashboard} exact />
-      <ProtectedRoute path="/delivery/schedule" component={ScheduleDelivery} exact />
+      <ProtectedRoute
+        path="/delivery/schedule"
+        component={ScheduleDelivery}
+        exact
+      />
       <ProtectedRoute path="/chat" component={Chat} exact />
       <ProtectedRoute path="/deliverers" component={Deliverers} exact />
+      <ProtectedRoute
+        path="/delivery/dispatch"
+        component={DispatchDelivery}
+        exact
+      />
     </Switch>
   </BrowserRouter>
 )

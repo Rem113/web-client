@@ -13,9 +13,14 @@ const Dashboard = () => {
       <h1>Dashboard</h1>
       <Deliveries />
       {manager && (
-        <Link to="/delivery/schedule" className={styles.button}>
-          Schedule a delivery
-        </Link>
+        <div className={styles.actions}>
+          <Link to="/delivery/schedule" className={styles.button}>
+            Schedule a delivery
+          </Link>
+          <Link to="/delivery/dispatch" className={styles.button}>
+            Dispatch deliveries
+          </Link>
+        </div>
       )}
     </div>
   )

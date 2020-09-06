@@ -36,4 +36,24 @@ export const getDeliveriesForDeliverer = (id) =>
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     })
-    .then((res) => res.data)
+    .then((res) =>
+      res.data.map((delivery) => ({ ...delivery, id: delivery._id }))
+    )
+
+export const getDeliveriesForToday = () =>
+  axios
+    .get(`http://localhost:3000/api/delivery/`, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    })
+    .then((res) =>
+      res.data.map((delivery) => ({ ...delivery, id: delivery._id }))
+    )
+
+export const markDeliveryAsDone = (id) =>
+  axios.put(`http://localhost:3000/api/delivery/${id}/done`, null, {
+    headers: {
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    },
+  })
