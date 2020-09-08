@@ -7,6 +7,7 @@
   align-items: center;
   height: 100%;
   margin: 0 1rem;
+  word-wrap: break-word;
 
   .title {
     font-family: "Zilla Slab";
@@ -29,6 +30,8 @@
     .date {
       font-size: 0.8rem;
       color: lighten($txt-color, 20);
+      vertical-align: baseline;
+      margin-right: 5px;
     }
 
     .manager {

@@ -17,6 +17,7 @@ import ScheduleDelivery from "pages/ScheduleDelivery"
 import Chat from "pages/Chat"
 import Deliverers from "pages/Deliverers"
 import DispatchDelivery from "pages/DispatchDelivery"
+import Diagrams from "pages/Diagrams"
 
 const App = () => (
   <BrowserRouter>
@@ -41,6 +42,7 @@ const App = () => (
         component={DispatchDelivery}
         exact
       />
+      <ProtectedRoute path="/delivery/diagrams" component={Diagrams} exact />
     </Switch>
   </BrowserRouter>
 )

@@ -13,6 +13,7 @@ const Chat = () => {
 
   useEffect(() => {
     socket.current = io("http://localhost:3000")
+    setInput(sessionStorage.getItem('name'))
     return () => socket.current.disconnect()
   }, [])
 
@@ -24,6 +25,8 @@ const Chat = () => {
   }
 
   const startChat = () => {
+    if (input == '') return;
+
     setChat(true)
     socket.current.emit("start", {
       user: input,
@@ -78,9 +81,12 @@ const Chat = () => {
         <input
           id="message-box"
           autoComplete="off"
-          onChange={({ target }) => setInput(target.value)}
-          onKeyDown={({ key }) =>
+          onChange={({ target }) =>
+            setInput(target.value)
+          }
+          onKeyDown={({ key }) => {
             key === "Enter" && (chat ? sendMessage() : startChat())
+          }
           }
           value={input}
         />

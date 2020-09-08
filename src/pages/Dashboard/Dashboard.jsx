@@ -20,6 +20,9 @@ const Dashboard = () => {
           <Link to="/delivery/dispatch" className={styles.button}>
             Dispatch deliveries
           </Link>
+          <Link to="/delivery/diagrams" className={styles.button}>
+            Show Diagrams
+          </Link>
         </div>
       )}
     </div>
