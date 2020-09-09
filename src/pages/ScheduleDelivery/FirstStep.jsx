@@ -1,5 +1,6 @@
 import React from "react"
 import { v4 as uuid } from "uuid"
+import cs from "classnames"
 
 import styles from "./style.scss"
 
@@ -18,7 +19,7 @@ const FirstStep = ({
       <h2>Addresses</h2>
       <div className={styles.inputs}>
         {addresses.map((item) => (
-          <div className={styles["form-group"]} key={item.id}>
+          <div className={cs(styles["form-group"])} key={item.id}>
             <input
               className={styles.input}
               type="text"

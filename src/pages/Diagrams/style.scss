@@ -1,11 +1,18 @@
 @import "../../config/style-variables.scss";
 
-.home-container {
-  display: flex;
-  place-items: center;
-  height: 100%;
+.container {
+  margin-top: 200px;
+  margin-bottom: 50px;
 
-  .text {
+  h1 {
+    font-family: "Zilla Slab";
+    text-align: center;
+    font-size: 3em;
+  }
+}
+
+/*
+.text {
     margin: 0 1rem;
 
     .title {
@@ -103,3 +110,6 @@
     }
   }
 }
+
+
+*/
