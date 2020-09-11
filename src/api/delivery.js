@@ -57,3 +57,12 @@ export const markDeliveryAsDone = (id) =>
       Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     },
   })
+
+export const getAllDeliveries = () =>
+  axios
+    .get("http://localhost:3000/api/delivery/all", {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => res.data)

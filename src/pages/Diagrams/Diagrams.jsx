@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from "react"
 import { Pie, Bar } from "react-chartjs-2"
 import color from "randomcolor"
-import axios from "axios"
+
+import { getAllDeliveries } from "api/delivery"
 
 import styles from "./style.scss"
 
 const Diagrams = () => {
-
   const [deliveries, setDeliveries] = useState([])
   const [sortedByCompletion, setSortedByCompletion] = useState([])
   const [sortedByCategory, setSortedByCategory] = useState([])
   const [sortedByMonth, setSortedByMonth] = useState([])
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/delivery/all", {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-      }
-    })
-      .then((res) => {
-        console.log(res.data)
-        setDeliveries(res.data)
-      })
+    getAllDeliveries().then((deliveries) => setDeliveries(deliveries))
   }, [])
+
+  useEffect(() => {
+    sortByCompletion()
+    sortByCategory()
+    sortByMonth()
+  }, [deliveries])
 
   const sortByCompletion = () => {
     let sorted = [0, 0]
@@ -30,7 +28,6 @@ const Diagrams = () => {
       d.done === true ? sorted[0]++ : sorted[1]++
     })
 
-    console.log(sorted)
     setSortedByCompletion(sorted)
   }
 
@@ -41,7 +38,6 @@ const Diagrams = () => {
       d.medicine === true ? sorted[1]++ : null
     })
 
-    console.log(sorted)
     setSortedByCategory(sorted)
   }
 
@@ -53,7 +49,6 @@ const Diagrams = () => {
       sorted[date.getMonth()]++
     })
 
-    console.log(sorted)
     setSortedByMonth(sorted)
   }
 
@@ -62,37 +57,82 @@ const Diagrams = () => {
       <h1>Chalom</h1>
 
       <button onClick={sortByCompletion}>Sort By Completed</button>
-      <Pie data={{
-        datasets: [{
-          data: sortedByCompletion,
-          backgroundColor: ['rgb(95, 224, 44)', 'rgb(221, 35, 82)']
-        }], labels: ['Completed', 'Uncompleted']
-      }}
-        options={{ maintainAspectRatio: true, title: { display: true, text: "Completude of All Tasks" } }}
+      <Pie
+        data={{
+          datasets: [
+            {
+              data: sortedByCompletion,
+              backgroundColor: ["rgb(95, 224, 44)", "rgb(221, 35, 82)"],
+            },
+          ],
+          labels: ["Completed", "Uncompleted"],
+        }}
+        options={{
+          maintainAspectRatio: true,
+          title: { display: true, text: "Completude of All Tasks" },
+        }}
       />
 
       <button onClick={sortByCategory}>Sort By Category</button>
-      <Pie data={{
-        datasets: [{
-          data: sortedByCategory,
-          backgroundColor: ['rgb(128, 240, 147)', 'rgb(244, 186, 225)']
-        }], labels: ['Food', 'Medicine']
-      }}
-        options={{ maintainAspectRatio: true, title: { display: true, text: "Number of Delivery per Category" } }}
+      <Pie
+        data={{
+          datasets: [
+            {
+              data: sortedByCategory,
+              backgroundColor: ["rgb(128, 240, 147)", "rgb(244, 186, 225)"],
+            },
+          ],
+          labels: ["Food", "Medicine"],
+        }}
+        options={{
+          maintainAspectRatio: true,
+          title: { display: true, text: "Number of Delivery per Category" },
+        }}
       />
 
       <button onClick={sortByMonth}>Sort By Month</button>
       <Bar
         data={{
-          datasets: [{
-            label: "Months",
-            data: sortedByMonth,
-            backgroundColor: [color(), color(), color(), color(), color(), color(), color(), color(), color(), color(), color(), color(),]
-          }], labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+          datasets: [
+            {
+              label: "Months",
+              data: sortedByMonth,
+              backgroundColor: [
+                color(),
+                color(),
+                color(),
+                color(),
+                color(),
+                color(),
+                color(),
+                color(),
+                color(),
+                color(),
+                color(),
+                color(),
+              ],
+            },
+          ],
+          labels: [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ],
         }}
-        options={{ maintainAspectRatio: true, title: { display: true, text: "Number of Delivery per Month" } }}
+        options={{
+          maintainAspectRatio: true,
+          title: { display: true, text: "Number of Delivery per Month" },
+        }}
       />
-
     </div>
   )
 }
