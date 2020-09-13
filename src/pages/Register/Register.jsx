@@ -16,12 +16,14 @@ const Register = () => {
     age: "",
     email: "",
     password: "",
+    address: ""
   })
   const [formErrors, setFormErrors] = useState({
     name: "",
     age: "",
     email: "",
     password: "",
+    address: ""
   })
 
   const handleChange = (e) =>
@@ -64,6 +66,16 @@ const Register = () => {
           autoComplete="off"
         />
         <small className={styles.error}>{formErrors.age}</small>
+      </div>
+      <div className={styles["form-group"]}>
+        <label htmlFor="address">Address :</label>
+        <input
+          type="text"
+          name="address"
+          value={formState.address}
+          onChange={handleChange}
+          autoComplete="off"
+        />
       </div>
       <div className={styles["form-group"]}>
         <label htmlFor="email">Email :</label>

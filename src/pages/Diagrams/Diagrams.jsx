@@ -54,9 +54,8 @@ const Diagrams = () => {
 
   return (
     <div className={styles.container}>
-      <h1>Chalom</h1>
+      <h1>Diagrams</h1>
 
-      <button onClick={sortByCompletion}>Sort By Completed</button>
       <Pie
         data={{
           datasets: [
@@ -73,7 +72,8 @@ const Diagrams = () => {
         }}
       />
 
-      <button onClick={sortByCategory}>Sort By Category</button>
+      <hr />
+
       <Pie
         data={{
           datasets: [
@@ -86,11 +86,12 @@ const Diagrams = () => {
         }}
         options={{
           maintainAspectRatio: true,
-          title: { display: true, text: "Number of Delivery per Category" },
+          title: { display: true, text: "Number of Deliveries per Category" },
         }}
       />
 
-      <button onClick={sortByMonth}>Sort By Month</button>
+      <hr />
+
       <Bar
         data={{
           datasets: [
