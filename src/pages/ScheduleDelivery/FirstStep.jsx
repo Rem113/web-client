@@ -4,6 +4,8 @@ import cs from "classnames"
 
 import styles from "./style.scss"
 
+
+
 const FirstStep = ({
   food,
   setFood,
@@ -19,19 +21,21 @@ const FirstStep = ({
       <h2>Addresses</h2>
       <div className={styles.inputs}>
         {addresses.map((item) => (
-          <div className={cs(styles["form-group"])} key={item.id}>
+          <div className={styles["form-group"]} key={item.id}>
             <input
               className={styles.input}
               type="text"
               value={item.address}
               onChange={(e) =>
+               { 
+                 
                 setAddresses(
                   addresses.map((i) =>
                     i.id === item.id
                       ? { ...i, address: e.target.value, error: "" }
                       : i
                   )
-                )
+                )}
               }
             />
             <button
@@ -55,7 +59,8 @@ const FirstStep = ({
           </button>
             <small className={styles.error}>{item.error}</small>
           </div>
-        ))}
+        ))}       
+
         <div className={styles["form-group"]}>
           <input
             name="food"

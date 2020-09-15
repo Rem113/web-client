@@ -10,7 +10,7 @@ const Dashboard = () => {
   const manager = sessionStorage.getItem("manager") === "true"
 
   const promoteToManager = async () => {
-    await Axios.put("localhost:3000/api/services/promote/to/manager")
+    await Axios.put("http://localhost:3000/api/services/promote/to/manager")
   }
 
   return (
