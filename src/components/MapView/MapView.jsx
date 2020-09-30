@@ -4,9 +4,7 @@ import { Map, TileLayer, Marker } from "react-leaflet"
 import styles from "./style.scss"
 
 const MapView = ({ deliveries, onMarkerClick }) => {
-  const addresses = deliveries.map((d) => {
-    console.log(d)
-    [d.address.lat, d.address.lon]})
+  const addresses = deliveries.map((d) => [d.address.lat, d.address.lon])
 
   return (
     <Map

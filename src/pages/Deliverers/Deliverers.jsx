@@ -77,8 +77,10 @@ const Deliverers = () => {
           </div>
         ))}
       </div>
-      {deliverers.length > 0 && (<button onClick={handleSubmit}>Save Changes</button>)}
-      {deliverers.length == 0 && (<h2>Any deliverers available...</h2>)}
+      {deliverers.length > 0 && (
+        <button onClick={handleSubmit}>Save Changes</button>
+      )}
+      {deliverers.length == 0 && <h2>There are no available deliverers</h2>}
     </div>
   )
 }

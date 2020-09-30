@@ -1,17 +1,14 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
+import { promoteToManager } from "api/auth"
+
 import Deliveries from "./Deliveries"
 
 import styles from "./style.scss"
-import Axios from "axios"
 
 const Dashboard = () => {
   const manager = sessionStorage.getItem("manager") === "true"
-
-  const promoteToManager = async () => {
-    await Axios.put("http://localhost:3000/api/services/promote/to/manager")
-  }
 
   return (
     <div className={styles.container}>
@@ -31,7 +28,11 @@ const Dashboard = () => {
         </div>
       )}
 
-      {!manager && (<button onClick={promoteToManager} className={styles.button}>Promote To Manager</button>)}
+      {!manager && (
+        <button onClick={promoteToManager} className={styles.button}>
+          Promote To Manager
+        </button>
+      )}
     </div>
   )
 }

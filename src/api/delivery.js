@@ -66,3 +66,14 @@ export const getAllDeliveries = () =>
       },
     })
     .then((res) => res.data)
+
+export const dispatchDeliveries = (ids) =>
+  axios.put(
+    "http://localhost:3000/api/delivery/dispatch",
+    { ids },
+    {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    }
+  )
